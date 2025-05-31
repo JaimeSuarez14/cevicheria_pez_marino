@@ -1,0 +1,328 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+header.active {
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.row-f {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.columna{
+    background-image: url("../img/oceano.jpg");
+    padding-right: 15px;
+    padding-left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.hamburger-close, .hamburger {
+    display: none;
+}
+
+.row-f .columna a img{
+    width: 50px;
+    margin: 1px;
+    border-radius: 50%;
+}
+
+.columna p {
+    margin-bottom: 10px;
+    font-size: 18px;
+    line-height: 18px;
+    color: #fff;
+    text-shadow: 0px 0px 10px rgb(0, 0, 0);
+}
+
+.col-20 {
+    width: 20%;
+}
+
+.col-80 {
+    width: 80%;
+}
+
+.menu-principal {
+    background-image: url("../img/fondo-cabecera.jpg");
+    background-size: cover;
+    position: relative;
+}
+
+.menu-principal .lista-1 {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: right;
+    align-items: center;
+    list-style: none;
+    margin-bottom: 0;
+}
+
+.menu-principal .lista-1 li{
+    margin: 0 10px;
+}
+
+.menu-principal .lista-1 li a{
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    padding: 7px 12px;
+    background-color: #000;
+    border-radius: 15px;
+    border: 1px solid #000;
+    font-size: 19px;
+    font-weight: bolder;
+}
+
+.menu-principal .lista-2 {
+    top: 100px;
+    left: 5px;
+    position: fixed;
+    display: inline-block;
+    z-index: 3;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-principal .lista-2 li{
+    margin: 10px 0px;
+}
+
+.menu-principal .lista-2 li a{
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    padding: 7px 7px;
+    background-color: #000;
+    border-radius: 15px;
+    border: 1px solid #000;
+    font-size: 19px;
+    font-weight: bolder;
+
+}
+
+/*SECCION DEL BANNER*/
+.banner {
+    min-height: 100vh;
+    width: 100%;
+    display: block;
+    position: relative;
+    z-index: 2;
+}
+
+
+.banner .d-block {
+    height: 100vh;
+    width: 100%;    
+    min-width: auto;
+    background-size: cover;
+}
+
+
+.banner-descripcion{
+    position: absolute;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    flex-wrap: wrap;
+    border: 1px solid #fff;
+    align-content: center;
+    inset: 0;
+
+}
+
+.banner-descripcion h1{
+    font-size: 80px;
+    line-height: 60px;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    text-shadow: 0px 0px 10px rgb(0, 0, 0);
+    margin-bottom: 35px;
+    font-weight: bolder;
+    font-style: italic;
+    font-family: Georgia, Times, 'Times New Roman', serif;
+}
+
+.banner-logo {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+}
+
+.banner-logo img {
+    margin: 0 auto;
+    display: block;
+    width: auto;
+    height: 300px;
+    background: transparent;
+    border-radius: 50%;
+    animation: scaleAnimation 2s ease-in-out infinite;
+}
+
+@keyframes scaleAnimation {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+.banner-descripcion .botones {
+    padding: 40px 0;
+    width: 80%;
+}
+.banner-descripcion .botones ul{
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.banner-descripcion .botones li{
+    font-size: 18px;
+    line-height: 21px;
+    color: rgb(255, 255, 255);
+    margin: 10px 15px;
+    list-style: none;
+}
+
+.banner-descripcion .botones a{
+    display: inline-block;
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 0, 0);
+    padding: 14px 7px;
+    border-radius: 100px;
+    line-height: 21px; /*esta opcion sirve para que el texto quede en el centro*/
+    width: 200px;
+    min-width: 100px;
+    text-decoration: none;
+    font-size: 19px;
+    font-weight: bolder;
+}
+.botones a:hover, .menu-principal .lista-1 li a:hover{
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+}
+
+.row {
+    display: flex;
+    align-items: center;
+}
+
+.col {
+    width: 50%;
+}
+
+.img-comida img{
+    width: 50vh;
+    margin: 10px;
+    border-radius: 15px;
+}
+
+@media screen and (max-width: 768px)  {
+    .banner-logo img {
+        height: 200px;
+    }
+
+    .nuestra-comida .container .row{
+        flex-wrap: wrap-reverse;
+    }
+
+    .ubicacion .container .row{
+        flex-wrap: wrap-reverse;
+    }
+
+    .mapa iframe{
+    min-width: 300px;
+   }
+
+   .menu-destacados li:hover .vista-previa img{
+    position: relative;
+    cursor: pointer;
+    display: block;
+    left: 25px;
+    top: 15px;
+    width: 300px;
+    height: 100%;
+    z-index: 1;
+    border-radius: 10px;
+    box-shadow: 0px 0px 30px #00f666;
+    transform: scale(1);
+    }
+}
+
+/*SECCION DEL VENTA EMERGENTE*/
+.menu-destacados{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.menu-destacados li{
+    width: 80%;
+    list-style-type: none;
+    padding: 5px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    letter-spacing: 3px;
+    font-size: 19px;
+    font-weight: bolder;
+    background: linear-gradient(to left, red, yellow);
+    box-shadow: 0px 0px 10px #000;
+    text-shadow:0px 0px 25px #f1eeee;
+    transition: all 1s ease-in-out;
+}
+
+.menu-destacados li:hover {
+    background: rgba(0, 0, 0, 0.7); /* Fondo oscuro semi-transparente */
+    color: white; /* Texto blanco para mejor contraste */
+    cursor: pointer;
+    width: 50%;
+}
+
+.vista-previa {
+    top: 0;
+    left: 0;
+}
+
+.vista-previa img {
+    position: absolute;
+    border-radius: 50%;
+    width: 1px;
+    transition: width 1s ease-in-out;
+    top: 0;
+    left: 0;
+}
+
+.menu-destacados li:hover .vista-previa img{
+    cursor: pointer;
+    display: block;
+    left: -30%;
+    width: 250px;
+    height: 100%;
+    z-index: 1;
+    box-shadow: 0px 0px 30px #00f666;
+    transform: scale(1.2);
+}
+

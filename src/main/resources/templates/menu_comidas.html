@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Comida</title>
+    <!-- Bootstrap CSS -->
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Font Awesome para iconos -->
+    <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css}" rel="stylesheet">
+    <link th:href="@{/css/menu_comidas.css}" rel="stylesheet">
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg sticky-top mb-4">
+        <div class="container">
+            <a class="navbar-brand fw-bold" th:href="@{/principal/}">
+                <img th:src="@{/img/logo.jpg}" alt="logo" class="logo-navbar">
+                El pez marino</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/principal/}"><i class="fas fa-home me-1"></i>Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="comidasDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-utensils me-1"></i>Comidas
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Entradas</a></li>
+                            <li><a class="dropdown-item" href="#">Platos principales</a></li>
+                            <li><a class="dropdown-item" href="#">Postres</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="bebidasDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-glass-whiskey me-1"></i>Bebidas
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Refrescos</a></li>
+                            <li><a class="dropdown-item" href="#">Jugos</a></li>
+                            <li><a class="dropdown-item" href="#">Cervezas</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-phone me-1"></i>Contáctanos</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+
+                    <button class="btn btn-add-to-cart div-carrito">
+                        <i class="fas fa-shopping-cart me-2"></i> Carrito
+                    </button>
+
+                    <button id="themeToggle" class="btn btn-outline-secondary me-2">
+                        <i class="fas fa-moon"></i>
+                    </button>
+
+                    <div class="input-group search-box">
+                        <input type="text" class="form-control" placeholder="Buscar...">
+                        <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <div class="container">
+        <!-- Destacado -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h4 class="card-title">Ceviche</h4>
+                        <p class="card-text price-tag">s/.20.00</p>
+                        <button class="btn btn-add-to-cart">Agregar al carrito</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categorías de comidas -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h3 class="category-title mb-3" data-bs-toggle="collapse" data-bs-target="#entradasCollapse">
+                    <i class="fas fa-chevron-down me-2"></i>Entradas
+                </h3>
+                <div class="collapse show" id="entradasCollapse">
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        <div class="col">
+                            <div class="card h-100 d-flex justify-content-center align-items-center p-3">
+                                <img th:src="@{/img/productos/parrillada.jpg}" class="card-img-top" alt="parrillada">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Parrillada</h5>
+                                    <p class="card-text price-tag">s/.30.00</p>
+                                    <button class="btn btn-add-to-cart">Agregar al carrito</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100 d-flex justify-content-center align-items-center p-3">
+                                <img th:src="@{/img/productos/piqueos.jpg}" class="card-img-top" alt="piqueos">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Piqueos</h5>
+                                    <p class="card-text price-tag">s/.10.00</p>
+                                    <button class="btn btn-add-to-cart">Agregar al carrito</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100 d-flex justify-content-center align-items-center p-3">
+                                <img th:src="@{/img/productos/chilcano.jpg}" class="card-img-top" alt="chilcano">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Sopa</h5>
+                                    <p class="card-text price-tag">s/.10.00</p>
+                                    <button class="btn btn-add-to-cart">Agregar al carrito</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Otras categorías -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h3 class="category-title mb-3" data-bs-toggle="collapse" data-bs-target="#platosCollapse">
+                    <i class="fas fa-chevron-down me-2"></i>Platos Principales
+                </h3>
+                <div class="collapse show" id="platosCollapse">
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Chicharrones</h5>
+                                    <p class="card-text price-tag">s/.20.00</p>
+                                    <button class="btn btn-add-to-cart">Agregar al carrito</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Jalea</h5>
+                                    <p class="card-text price-tag">s/.40.00</p>
+                                    <button class="btn btn-add-to-cart">Agregar al carrito</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Mixto</h5>
+                                    <p class="card-text price-tag">S/.30.00</p>
+                                    <button class="btn btn-add-to-cart">Agregar al carrito</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Ronda marina</h5>
+                                    <p class="card-text price-tag">s/.50.00</p>
+                                    <button class="btn btn-add-to-cart">Agregar al carrito</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-menu bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Cevicheria El pez marino	</h5>
+                    <p>Los mejores sabores marinos del Perú</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Horario</h5>
+                    <p>Lunes a Domingo: 10am - 10pm</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contacto</h5>
+                    <p><i class="fas fa-phone me-2"></i> (01) 123-4567</p>
+                    <p><i class="fas fa-envelope me-2"></i> info@restaurante.com</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS y Popper -->
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/menu.js}"></script>       
+    
+</body>
+</html>

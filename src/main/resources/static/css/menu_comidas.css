@@ -1,0 +1,138 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #212529;
+    --card-bg: #f8f9fa;
+    --header-bg: #f8f9fa;
+    --hover-color: #e9ecef;
+}
+
+.dark-mode {
+    --bg-color: #212529;
+    --text-color: #f8f9fa;
+    --card-bg: #343a40;
+    --header-bg: #343a40;
+    --hover-color: #495057;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.navbar, .card, .list-group-item {
+    background-color: var(--card-bg) !important;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.btn-add-to-cart {
+    background-color: #0d6efd;
+    color: white;
+    transition: all 0.2s;
+}
+
+.btn-add-to-cart:hover {
+    background-color: #0b5ed7;
+    transform: scale(1.05);
+}
+
+.category-title {
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.category-title:hover {
+    color: #0d6efd;
+}
+
+.search-box {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.price-tag {
+    font-weight: bold;
+    color: #0d6efd;
+}
+
+.dark-mode .price-tag {
+    color: #6ea8fe;
+}
+
+.dark-mode .navbar, .dark-mode .card, .dark-mode .list-group-item {
+    color: #f8f9fa !important;
+}
+
+.div-carrito{
+    background-color: #09ed4d;
+    color: white;
+    transition: all 0.2s;
+    padding:5px;
+    border-radius: 4px;
+    border: none;
+    margin-right: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-add-to-cart:hover {
+    background-color: #0b5ed7;
+    transform: scale(1.05);
+    color: rgba(255, 255, 255, 0.774);
+
+}
+
+.dark-mode .btn-add-to-cart {
+    background-color: #1e88e5;
+}
+
+.dark-mode .btn-add-to-cart:hover {
+    background-color: #1976d2;
+}
+
+.card-img-top {
+    width: 300px;
+    height: 250px; /* Altura fija para todas las imágenes */
+    object-fit: cover; /* Asegura que la imagen cubra el espacio sin distorsionarse */
+    border-bottom: 1px solid rgba(0,0,0,0.1); /* Línea sutil debajo de la imagen */
+    border-radius: 10px;
+}
+
+.dark-mode .card-img-top {
+    border-bottom: 1px solid rgba(255,255,255,0.1); /* Línea más clara en modo oscuro */
+}
+
+.dark-mode #navbarNav .nav-link{
+    color: white !important;
+}
+
+.dark-mode .navbar-brand{
+    color: white;
+}
+
+.logo-navbar{
+    width: 50px;
+    margin: 1px;
+    border-radius: 50%;
+}
+
+.dark-mode .logo-navbar{
+    border: 1px solid white;
+}
+
+.logo-navbar:hover{
+    transform: scale(1.05);
+}
+
+.dark-mode .footer-menu{
+    background-color: #09ed4d;
+    color: white;
+    border-top: 1px solid rgba(255, 255, 255, 0.551);
+}
