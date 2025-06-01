@@ -1,0 +1,13 @@
+.logo-navbar{
+    width: 50px;
+    margin: 1px;
+    border-radius: 50%;
+}
+
+.dark-mode .logo-navbar{
+    border: 1px solid white;
+}
+
+.logo-navbar:hover{
+    transform: scale(1.05);
+}
