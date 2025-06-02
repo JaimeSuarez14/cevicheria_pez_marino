@@ -12,4 +12,24 @@ public class ReservaController {
     public String reserva(){
         return "ventana_reserva1";
     }
+
+    @GetMapping("/personas")
+    public String reserva2(){
+        return "ventana_reserva2";
+    }
+
+    @GetMapping("/fecha")
+    public String reserva3(){
+        return "ventana_reserva3";
+    }
+    
+    @GetMapping("/hora")
+    public String reserva4(){
+        return "ventana_reserva4";
+    }
+
+    @GetMapping("/datos")
+    public String reserva5(){
+        return "ventana_reserva5";
+    }
 }

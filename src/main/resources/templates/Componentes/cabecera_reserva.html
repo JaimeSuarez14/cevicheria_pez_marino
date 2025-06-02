@@ -1,0 +1,42 @@
+<nav th:fragment="cabecera_reserva(paginaActiva)" class="navbar navbar-expand-lg navbar-light sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold" th:href="@{/principal/}">
+            <img th:src="@{/img/logo.jpg}" alt="logo" class="logo-navbar">El Pez Marino
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item" th:classappend="${paginaActiva == 'degustacion'} ? 'active' : ''">
+                    <a class="nav-link" th:classappend="${paginaActiva == 'degustacion'} ? 'active' : ''" th:href="@{/reserva/degustacion}">
+                        <i class="fas fa-utensils me-1"></i>Degustación
+                    </a>
+                </li>
+                <li class="nav-item" th:classappend="${paginaActiva == 'personas'} ? 'active' : ''">
+                    <a class="nav-link" th:classappend="${paginaActiva == 'personas'} ? 'active' : ''" th:href="@{/reserva/personas}">
+                        <i class="fas fa-users me-1"></i>Personas
+                    </a>
+                </li>
+                <li class="nav-item" th:classappend="${paginaActiva == 'fecha'} ? 'active' : ''">
+                    <a class="nav-link" th:classappend="${paginaActiva == 'fecha'} ? 'active' : ''" th:href="@{/reserva/fecha}">
+                        <i class="fas fa-calendar-alt me-1"></i>Fecha
+                    </a>
+                </li>
+                <li class="nav-item" th:classappend="${paginaActiva == 'hora'} ? 'active' : ''">
+                    <a class="nav-link" th:classappend="${paginaActiva == 'hora'} ? 'active' : ''" th:href="@{/reserva/hora}">
+                        <i class="fas fa-clock me-1"></i>Hora
+                    </a>
+                </li>
+                <li class="nav-item" th:classappend="${paginaActiva == 'datos'} ? 'active' : ''">
+                    <a class="nav-link" th:classappend="${paginaActiva == 'datos'} ? 'active' : ''" th:href="@{/reserva/datos}">
+                        <i class="fas fa-info-circle me-1"></i>Datos
+                    </a>
+                </li>
+            </ul>
+            <div class="ms-3 theme-toggle" id="themeToggle">
+                <i class="fas fa-moon fs-5"></i>
+            </div>
+        </div>
+    </div>
+</nav>
