@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Iniciando carga de componentes...');
     cargarEstilosComunes();
-    cargarBarraProgreso(2);
+
     initializeTheme();
     console.log('Componentes cargados');
 });
