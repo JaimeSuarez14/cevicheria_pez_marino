@@ -1,17 +1,3 @@
-<!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Footer Reserva - El Pez Marino</title>
-    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css}" rel="stylesheet">
-    
-    <!-- Contenedor para estilos comunes -->
-    <div id="estilos-comunes"></div>
-</head>
-<body>
-    
 
     <!-- Contenedor para el footer -->
     <div th:fragment="footer(paginaAnterior, paginaSiguiente, esFinal)" class="footer py-4 mt-5 bt-0">
@@ -48,11 +34,3 @@
             
         </div>
     </div>    
-
-    <!-- Scripts -->
-    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
-
-    <script th:src="@{/js/tema.js}"></script>
-    
-</body>
-</html> 

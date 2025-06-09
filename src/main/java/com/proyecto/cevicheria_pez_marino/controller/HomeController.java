@@ -17,4 +17,9 @@ public class HomeController {
     public String menuComidas(){
         return "menu_comidas";
     }
+
+    @GetMapping("/pedidos")
+    public String pedidos(){
+        return "Pedidos";
+    }
 }

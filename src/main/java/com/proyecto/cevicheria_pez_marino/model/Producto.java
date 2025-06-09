@@ -6,23 +6,21 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToOne;
 
-@Entity
-@Table(name = "usuarios")
 @Data
-public class Usuario {
-
+@Entity
+@Table(name = "producto")
+public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private int id;
     private String nombre;
-
-    private String email;
-
-    private String password;
-
-    private String celular;
-
-    private String direccion;
+    private double precio;
+    private String descripcion;
+    private String imagen;
+    private int stock;
+    private String categoria;
+    @ManyToOne
+    private Usuario usuario;
 }

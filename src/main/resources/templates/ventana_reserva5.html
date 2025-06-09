@@ -59,9 +59,31 @@
             background: #f8f9fa;
         }
 
+        .login-btn {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #00ff11;
+            background: #03ca10;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            text-decoration: none;
+            display: block;
+        }
+
+        .login-btn:hover {
+            background: white;
+            color: #03ca10;
+        }
+
         .facebook-btn {
             background: #1877f2;
             color: white;
+            border: none;
+            text-decoration: none;
+            display: block;
         }
 
         .facebook-btn:hover {
@@ -73,10 +95,13 @@
             background: white;
             color: #333;
             border: 1px solid #ddd;
+            text-decoration: none;
+            display: block;
         }
 
         .google-btn:hover {
-            background: #f8f9fa;
+            background: white;
+            color: #03ca10;
         }
 
         .whatsapp-link {
@@ -129,14 +154,19 @@
                 
                 <div class="row mb-4">
                     <div class="col-6">
-                        <button class="social-login-btn facebook-btn">
-                            <i class="fab fa-facebook me-2"></i>Facebook
-                        </button>
+                        <a th:href="@{/usuario/login}" class="social-login-btn login-btn btn-secondary">
+                            <span class="me-2">Iniciar Sesion</span>
+                        </a>
                     </div>
                     <div class="col-6">
-                        <button class="social-login-btn google-btn">
+                        <a class="social-login-btn facebook-btn">
+                            <i class="fab fa-facebook me-2"></i>Facebook
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a class="social-login-btn google-btn">
                             <i class="fab fa-google me-2"></i>Google
-                        </button>
+                        </a>
                     </div>
                 </div>
 
