@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Gracias por tu compra!</title>
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Un gris muy claro, puedes ajustar */
+        }
+        .main-container {
+            background-color: #f4e9e9; /* Color de fondo similar al prototipo */
+            min-height: 100vh; /* Para que ocupe toda la altura de la ventana */
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+        .section-header {
+            color: #6a6a6a;
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-bottom: 25px;
+        }
+        .info-label {
+            color: #495057;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .info-value {
+            color: #6c757d;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .info-summary {
+            margin-bottom: 30px;
+        }
+        .btn-realizar-pedido {
+            background-color: #8c8c7c;
+            color: white;
+            font-weight: 500;
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: none;
+            width: 100%;
+            margin-top: 30px;
+        }
+        .btn-realizar-pedido:hover {
+            background-color: #a0a090;
+            color: white;
+        }
+
+        /* --- Estilos específicos de esta página --- */
+        .progress-bar-container {
+            background-color: #e9ecef; /* Color de fondo de la barra */
+            padding: 15px 0;
+            margin-bottom: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            position: relative; /* Para el texto superior */
+        }
+        .progress-bar-container p {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+        .step-indicator {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .step-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #8c8c7c; /* Color para los pasos completados/activos */
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-align: center;
+            position: relative;
+            flex: 1; /* Para distribuir equitativamente */
+        }
+        .step-item.inactive {
+            color: #adb5bd; /* Color para pasos inactivos/futuros */
+            font-weight: normal;
+        }
+        .step-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #8c8c7c; /* Color del círculo del ícono */
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 8px;
+            color: white;
+            font-size: 1.5rem;
+            border: 2px solid #8c8c7c;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .step-item.inactive .step-icon {
+            background-color: #f4f4f4; /* Fondo para íconos inactivos */
+            color: #adb5bd; /* Color del ícono inactivo */
+            border-color: #adb5bd;
+        }
+        .step-line {
+            position: absolute;
+            top: 25px; /* A la mitad del ícono */
+            left: 50%;
+            width: calc(100% - 100px); /* Ajusta según el ancho de los íconos */
+            height: 2px;
+            background-color: #8c8c7c; /* Línea de progreso activa */
+            z-index: 0;
+        }
+        .step-line.inactive {
+            background-color: #ced4da; /* Línea de progreso inactiva */
+        }
+        .step-item:first-child .step-line {
+            display: none; /* Oculta la línea del primer elemento */
+        }
+        .step-item:last-child .step-line {
+            display: none; /* Oculta la línea del último elemento, si no hay más */
+        }
+
+        .thank-you-message {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #343a40;
+            margin-bottom: 10px;
+        }
+        .confirmation-email-text {
+            font-size: 1.1rem;
+            color: #6c757d;
+            margin-bottom: 40px;
+        }
+
+        /* Sección "Guardar mi información" (Crear cuenta) */
+        .save-info-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            margin-bottom: 40px;
+        }
+        .save-info-card .form-group-custom .form-control {
+            background-color: #f0f0f0; /* Fondo más oscuro para estos inputs */
+            border: 1px solid #e0e0e0;
+        }
+        .save-info-card .form-group-custom .form-control:focus {
+            background-color: #fff;
+            border-color: #8c8c7c;
+            box-shadow: 0 0 0 0.25rem rgba(140, 140, 124, 0.25);
+        }
+        .create-account-btn {
+            background: none;
+            border: none;
+            color: #6c757d;
+            font-size: 0.95rem;
+            text-decoration: underline;
+            padding: 0;
+            margin-top: 15px;
+        }
+        .create-account-btn:hover {
+            color: #495057;
+        }
+
+        /* Sección Recibo */
+        .receipt-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+        }
+        .receipt-card h4 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #343a40;
+            margin-bottom: 25px;
+        }
+        .receipt-item-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 1rem;
+            color: #495057;
+        }
+        .receipt-item-row .item-name {
+            font-weight: 500;
+            flex-grow: 1;
+        }
+        .receipt-item-row .item-price {
+            font-weight: 500;
+            min-width: 80px; /* Para alinear los precios */
+            text-align: right;
+        }
+        .receipt-divider {
+            border-top: 1px dashed #ced4da; /* Línea punteada */
+            margin: 20px 0;
+        }
+        .receipt-total-row {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #343a40;
+            margin-top: 20px;
+        }
+
+        /* Alineación del Recibo */
+        @media (min-width: 768px) {
+            .receipt-card {
+                margin-top: 0;
+                position: sticky;
+                top: 30px;
+            }
+        }
+        
+        /* Ajustes para el espacio entre guiones y el texto en el método de envío del resumen */
+        .info-value.shipping-method {
+            white-space: pre-wrap; /* Para preservar el formato del texto */
+            word-break: break-all; /* Para que las palabras se rompan y no desborden */
+        }
+        
+        /* Ajuste específico para el "Método de envío:" en el Recibo, para que el texto "Despacho a domicilio" y "FREE" se vean bien */
+        .receipt-info-value span {
+            display: inline-block; /* Permite que el span de texto se comporte como bloque */
+            width: calc(100% - 100px); /* Ajusta el ancho para el texto y los puntos */
+            white-space: nowrap; /* Evita que el texto salte de línea */
+            overflow: hidden; /* Oculta el texto que se desborde */
+            text-overflow: ellipsis; /* Añade puntos suspensivos si el texto es muy largo */
+            vertical-align: bottom; /* Alineación para que los puntos vayan al final */
+        }
+        .dotted-line {
+            border-bottom: 1px dotted #6c757d; /* Línea punteada */
+            flex-grow: 1; /* Ocupa el espacio disponible */
+            margin: 0 5px; /* Espacio alrededor de los puntos */
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .receipt-info-value {
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+            color: #6c757d;
+            margin-bottom: 8px;
+        }
+        .receipt-info-value .info-label-sub {
+            font-weight: 500;
+            color: #495057;
+            margin-right: 5px; /* Espacio entre el label y la línea */
+            white-space: nowrap; /* Evita que el label salte de línea */
+        }
+        .receipt-info-value .info-value-sub {
+            white-space: nowrap; /* Evita que el valor salte de línea */
+        }
+
+        /* Estilo para los elementos del recibo en la lista de ítems */
+        .receipt-product-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1rem;
+            color: #495057;
+            margin-bottom: 5px;
+        }
+        .receipt-product-item .product-name {
+            flex-grow: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .receipt-product-item .product-price {
+            font-weight: 500;
+            min-width: 80px;
+            text-align: right;
+            margin-left: 10px;
+        }
+        .receipt-item-image {
+            width: 80px;
+            height: 80px;
+            background-color: #e0e0e0; /* Color de fondo para placeholder */
+            border-radius: 5px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container main-container">
+        <div class="progress-bar-container">
+            <p>Solo en Cevichería El Pez Marino el envío es gratis en esta compra.</p>
+            <div class="step-indicator">
+                <div class="step-item">
+                    <span class="step-icon"><i class="bi bi-shop"></i></span>
+                    <span>En tienda</span>
+                </div>
+                <div class="step-item position-relative">
+                    <div class="step-line"></div>
+                    <span class="step-icon"><i class="bi bi-cart"></i></span>
+                    <span>Mi pedido</span>
+                </div>
+                <div class="step-item position-relative">
+                    <div class="step-line inactive"></div>
+                    <span class="step-icon inactive"><i class="bi bi-truck"></i></span>
+                    <span class="inactive">Envío</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7">
+                <h2 class="thank-you-message">¡Gracias por tu compra!</h2>
+                <p class="confirmation-email-text">
+                    Recibirás una confirmación por correo electrónico en breve a<br>
+                    <strong>jaisua8@gmail.com</strong>
+                </p>
+
+                <h2 class="section-header">Guardar mi información</h2>
+                <div class="save-info-card">
+                    <form>
+                        <div class="mb-3 form-group-custom">
+                            <label for="contrasena" class="form-label">Contraseña *</label>
+                            <input type="password" class="form-control" id="contrasena" value="************" required>
+                        </div>
+                        <div class="mb-4 form-group-custom">
+                            <label for="confirmarContrasena" class="form-label">Confirmar contraseña *</label>
+                            <input type="password" class="form-control" id="confirmarContrasena" value="************" required>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-link create-account-btn">Create Account</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="receipt-card">
+                    <h4>Recibo</h4>
+
+                    <div class="info-summary">
+                        <span class="info-label">Número de orden:</span>
+                        <span class="info-value">0000001</span>
+                        <span class="info-label">Fecha de la orden:</span>
+                        <span class="info-value">01/05/2025</span>
+                    </div>
+
+                    <div class="info-summary">
+                        <span class="info-label">Dirección de envío:</span>
+                        <span class="info-value">Av. Arequipa 2247<br>CABA - CP 1428<br>Lima</span>
+                    </div>
+
+                    <div class="info-summary">
+                        <span class="info-label">Método de envío:</span>
+                        <span class="info-value shipping-method">Despacho a domicilio</span>
+                    </div>
+                    
+                    <div class="info-summary">
+                        <span class="info-label">Dirección de facturación:</span>
+                        <span class="info-value">Av. Cabildo 2247<br>CABA - CP 1428<br>Lima</span>
+                    </div>
+
+                    <div class="info-summary">
+                        <span class="info-label">Método de pago:</span>
+                        <span class="info-value">Credit Visa<br>************3345<br>Vencimiento 11/28</span>
+                    </div>
+
+                    <div class="receipt-divider"></div>
+
+                    <div class="receipt-product-item">
+                        <span class="product-name">1 Item..........................................................</span>
+                        <span class="product-price">S/. 100.00</span>
+                    </div>
+                    <div class="receipt-product-item">
+                        <span class="product-name">RONDA MARINA</span>
+                    </div>
+                    <div class="receipt-product-item">
+                        <span class="product-name">JALEA MARINA</span>
+                    </div>
+                    <div class="receipt-item-image">
+                        <img src="https://via.placeholder.com/80x80?text=Producto" alt="Producto" class="img-fluid rounded">
+                    </div>
+                    <div class="receipt-divider"></div>
+
+                    <div class="summary-row">
+                        <span>Subtotal..........................................................</span>
+                        <span>S/. 100.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Descuentos..........................................................</span>
+                        <span>S/. 0.00</span>
+                    </div>
+                    <div class="summary-row receipt-total-row">
+                        <span>Total....................................................................</span>
+                        <span>S/. 100.00</span>
+                    </div>
+
+                    <a th:href="@{/principal/menu}" class="btn btn-primary w-100 continue-shopping-link">Seguir comprando</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</body>
+</html>

@@ -9,6 +9,12 @@
     <!-- Font Awesome para iconos -->
     <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css}" rel="stylesheet">
     <style>
+        .logo-navbar {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
         .category-title {
             background-color: #ff6b6b;
             color: white;
@@ -64,29 +70,34 @@
         <div class="row">
             <!-- Menú de Comidas -->
             <div class="col-lg-8">
-                <h1 class="text-center mb-4"><i class="fas fa-utensils me-2"></i>Menú Digital</h1>
+                <div>
+                    <a class="navbar-brand fw-bold" th:href="@{/principal/}">
+                        <img th:src="@{/img/logo.jpg}" alt="logo" class="logo-navbar">
+                        El pez marino</a>
+                    <h1 class="text-center mb-4"><i class="fas fa-utensils me-2"></i>Pedidos Online</h1>
+                </div>
                 
                 <!-- Barra de búsqueda -->
                 <div class="input-group mb-4">
-                    <input type="text" class="form-control" placeholder="Buscar en el menú...">
+                    <input type="text" class="form-control" placeholder="Buscar en tu pedido...">
                     <button class="btn btn-outline-secondary" type="button"><i class="fas fa-search"></i></button>
                 </div>
                 
                 <!-- Categorías -->
                 <div class="mb-5">
-                    <h4 class="category-title"><i class="fas fa-hamburger me-2"></i>Hamburguesas</h4>
+                    <h4 class="category-title"><i class="fas fa-utensils me-2"></i>Entradas</h4>
                     <div class="row">
                         <!-- Item 1 -->
                         <div class="col-md-6 col-lg-4">
                             <div class="card card-menu">
-                                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Hamburguesa Clásica">
+                                <img th:src="@{/img/productos/piqueos.jpg}" class="card-img-top" alt="Tequeños de Pulpa">
                                 <div class="card-body">
-                                    <h5 class="card-title">Hamburguesa Clásica</h5>
-                                    <p class="card-text">Carne 150g, queso cheddar, lechuga, tomate y salsa especial.</p>
+                                    <h5 class="card-title">Tequeños de Pulpa</h5>
+                                    <p class="card-text">12 Tequeños con guacamole, rellenos de pulpa de congrejo + limonada 1 Lt.</p>
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <span class="price">$8.99</span>
+                                        <span class="price">s/ 24.99</span>
                                         <div>
-                                            <span class="badge bg-warning me-1"><i class="fas fa-pepper-hot"></i> Picante</span>
+                                            <span class="badge bg-warning me-1"><i class="fas fa-pepper-hot"></i> Picante Saladito</span>
                                             <button class="btn btn-sm btn-add"><i class="fas fa-plus"></i> Añadir</button>
                                         </div>
                                     </div>
@@ -97,12 +108,12 @@
                         <!-- Item 2 -->
                         <div class="col-md-6 col-lg-4">
                             <div class="card card-menu">
-                                <img src="https://images.unsplash.com/photo-1561758033-48d52648ae8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Hamburguesa Vegana">
+                                <img th:src="@{/img/productos/leche_tigre.jpg}" class="card-img-top" alt="leche de tigre">
                                 <div class="card-body">
-                                    <h5 class="card-title">Hamburguesa Vegana</h5>
-                                    <p class="card-text">Base de garbanzos, espinacas y especias, con vegetales frescos.</p>
+                                    <h5 class="card-title">Leche de Tigre</h5>
+                                    <p class="card-text">Deliciosa entrada marina con leche de tigre.</p>
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <span class="price">$9.49</span>
+                                        <span class="price">s/ 34.99</span>
                                         <div>
                                             <span class="badge badge-veg me-1"><i class="fas fa-leaf"></i> Vegano</span>
                                             <button class="btn btn-sm btn-add"><i class="fas fa-plus"></i> Añadir</button>
@@ -116,17 +127,17 @@
                 
                 <!-- Otra categoría -->
                 <div class="mb-5">
-                    <h4 class="category-title"><i class="fas fa-pizza-slice me-2"></i>Pizzas</h4>
+                    <h4 class="category-title"><i class="fas fa-fish me-2"></i>Platos Principales</h4>
                     <div class="row">
                         <!-- Item 3 -->
                         <div class="col-md-6 col-lg-4">
                             <div class="card card-menu">
-                                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Pizza Margarita">
+                                <img th:src="@{/img/productos/causa.png}" class="card-img-top" alt="causa">
                                 <div class="card-body">
-                                    <h5 class="card-title">Pizza Margarita</h5>
-                                    <p class="card-text">Salsa de tomate, mozzarella fresca y albahaca.</p>
+                                    <h5 class="card-title">Causa Rellena con Langostino</h5>
+                                    <p class="card-text">Deliciosa Causa rellena con pulpa de cangrejo o langostinos.</p>
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <span class="price">$12.99</span>
+                                        <span class="price">s/ 50.00</span>
                                         <button class="btn btn-sm btn-add"><i class="fas fa-plus"></i> Añadir</button>
                                     </div>
                                 </div>
@@ -148,11 +159,11 @@
                             <div class="cart-item">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <h6>Hamburguesa Clásica</h6>
-                                        <small class="text-muted">$8.99 x 1</small>
+                                        <h6>Tequeños de pulpa</h6>
+                                        <small class="text-muted">24.99 x 1</small>
                                     </div>
                                     <div>
-                                        <span class="price">$8.99</span>
+                                        <span class="price">s/ 24.99</span>
                                         <button class="btn btn-sm btn-outline-danger ms-2"><i class="fas fa-times"></i></button>
                                     </div>
                                 </div>
@@ -161,11 +172,23 @@
                             <div class="cart-item">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <h6>Pizza Margarita</h6>
-                                        <small class="text-muted">$12.99 x 1</small>
+                                        <h6>Leche de Tigre</h6>
+                                        <small class="text-muted">34.99 x 1</small>
                                     </div>
                                     <div>
-                                        <span class="price">$12.99</span>
+                                        <span class="price">s/ 34.99</span>
+                                        <button class="btn btn-sm btn-outline-danger ms-2"><i class="fas fa-times"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cart-item">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6>Causa Rellena con Langostino</h6>
+                                        <small class="text-muted">50.00 x 1</small>
+                                    </div>
+                                    <div>
+                                        <span class="price">s/ 50.00</span>
                                         <button class="btn btn-sm btn-outline-danger ms-2"><i class="fas fa-times"></i></button>
                                     </div>
                                 </div>
@@ -175,16 +198,16 @@
                         <div class="mt-3">
                             <div class="d-flex justify-content-between fw-bold">
                                 <span>Subtotal:</span>
-                                <span>$21.98</span>
+                                <span>s/ 104.99</span>
                             </div>
                             <div class="d-flex justify-content-between text-muted">
                                 <span>Envío:</span>
-                                <span>$2.50</span>
+                                <span>s/ 2.50</span>
                             </div>
                             <hr>
                             <div class="d-flex justify-content-between fw-bold fs-5">
                                 <span>Total:</span>
-                                <span>$24.48</span>
+                                <span>s/ 107.49</span>
                             </div>
                         </div>
                         

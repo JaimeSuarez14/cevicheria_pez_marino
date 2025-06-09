@@ -20,7 +20,7 @@ function cargarBarraProgreso(pasoActual) {
         barraProgreso += `
             <div class="progress-bar ${clase}" role="progressbar" style="width: 20%;" 
                  aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                <a class="fw-bold text-white text-decoration-none" href="${paso.toLowerCase()}.html">${paso}</a>
+                <a class="fw-bold text-white text-decoration-none" th:href="@{/carrito/${paso.toLowerCase()}}">${paso}</a>
             </div>`;
     });
     
