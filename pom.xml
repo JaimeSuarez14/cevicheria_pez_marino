@@ -32,11 +32,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId> <!-- para la base de datos, permite la creacion de tablas -->
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId> <!-- Esta dependencia permite la creacion de plantillas -->
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

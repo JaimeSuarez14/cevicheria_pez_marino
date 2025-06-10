@@ -25,4 +25,6 @@ public class Usuario {
     private String celular;
 
     private String direccion;
+
+    private String img;
 }
