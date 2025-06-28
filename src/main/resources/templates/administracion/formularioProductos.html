@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de producto</title>
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css}"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <section>
+        <div class="container py-5" >
+            <div class="row">
+                <div class="col-md-1 pt-4 mt-1 fw-bolder"><a href="/administracion/lista_productos"><i class="fa-solid fa-circle-left fa-2x"></i></a></div>
+                <div class="col-md-11 card-header text-center display-6 pt-3 mt-1 fw-bolder">Panel de Productos</div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mt-4">
+                    
+                    <div class="card card-sh">
+                        <div class="card-header text-center">
+                            <p>Formulario para crear nuevo producto</p>
+                        </div>
+                        <div class="card-body text-primary">
+                            <form th:action="@{/administracion/guardarProducto}" method="post" enctype="multipart/form-data">
+                                
+                                <div class="mb-3">
+                                    <label for="">Ingresa el nombre del producto:</label>
+                                    <input type="text" name="nombre" class="form-control border border-success" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="">Ingresa la descripcion:</label>
+                                    <textarea name="descripcion" rows="3" id="" class="form-control border border-success" required></textarea>
+                                </div>
+                                <div class="row">
+                                    <div class="col mb-3">
+                                        <label for="category">Categoria</label>
+                                        <select class="form-control border border-success" name="categoria" id="category" required>
+                                            <option > --- Selecionar una categoria --- </option>
+                                            <option value="principal">Principal</option>
+                                            <option value="postre">Postres</option>
+                                            <option value="entrada">Entrada</option>
+                                            <option value="refresco">Refresco</option>
+                                            <option value="jugo">Jugo</option>
+
+                                        </select>
+                                    </div>
+    
+                                    <div class="col mb-3">
+                                        <label for="">Ingresa el precio</label>
+                                        <input type="number" name="precio" class="form-control border border-success" step="0.01" required>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col mb-3">
+                                        <label for="">Ingresa el stock</label>
+                                        <input type="number" name="stock" class="form-control border border-success" required>
+                                    </div>
+
+                                    <div class="col mb-3">
+                                        <label for="">Guarda la imagen</label>
+                                        <input type="file" name="file" class="form-control border border-success" required>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary col-md-12">Guardar Productos</button>
+                            </form>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </section>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>

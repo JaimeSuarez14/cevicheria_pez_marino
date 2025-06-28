@@ -1,25 +1,54 @@
 package com.proyecto.cevicheria_pez_marino.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.proyecto.cevicheria_pez_marino.model.Producto;
+import com.proyecto.cevicheria_pez_marino.service.ProductoService;
+
+import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/principal")
+@RequiredArgsConstructor
 public class HomeController {
 
+    private final ProductoService productoService;
+
     @GetMapping("/")
+    public String home(){
+        return "principal";
+    }
+
+    @GetMapping("/principal")
     public String principal(){
         return "principal";
     }
 
-    @GetMapping("/menu")
-    public String menuComidas(){
+    @GetMapping("/principal/menu")
+    public String menuComidas(Model model){
+        model.addAttribute("productos", productoService.findAll());
         return "menu_comidas";
     }
 
-    @GetMapping("/pedidos")
+    @GetMapping("/principal/pedidos")
     public String pedidos(){
         return "Pedidos";
     }
+
+    @PostMapping("/principal/buscar")
+    public String buscarProducto(@RequestParam("busqueda") String busqueda, Model model) {
+
+        List<Producto> productos = productoService.buscarPorNombre(busqueda);
+        model.addAttribute("productos", productos);
+
+        //obtener el usuario
+        return "menu_comidas";
+        
+    }
+
 }
