@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css}" rel="stylesheet">
     <link th:href="@{/css/menu_comidas.css}" rel="stylesheet">
 </head>
+
 <body>
     <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg sticky-top mb-4">
@@ -26,7 +28,8 @@
                         <a class="nav-link active" th:href="@{/principal/}"><i class="fas fa-home me-1"></i>Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="comidasDropdown" role="button" data-bs-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="comidasDropdown" role="button"
+                            data-bs-toggle="dropdown">
                             <i class="fas fa-utensils me-1"></i>Comidas
                         </a>
                         <ul class="dropdown-menu">
@@ -36,7 +39,8 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="bebidasDropdown" role="button" data-bs-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="bebidasDropdown" role="button"
+                            data-bs-toggle="dropdown">
                             <i class="fas fa-glass-whiskey me-1"></i>Bebidas
                         </a>
                         <ul class="dropdown-menu">
@@ -46,14 +50,17 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{https://wa.link/ry3ik0}"><i class="fas fa-phone me-1"></i>Contáctanos</a>
+                        <a class="nav-link" th:href="@{https://wa.link/ry3ik0}"><i
+                                class="fas fa-phone me-1"></i>Contáctanos</a>
                     </li>
                 </ul>
                 <div class="d-flex align-items-center">
 
-                    <button class="p-0 mr-5 btn btn-add-to-cart div-carrito">
-                        <a th:href="@{/carrito/productos}" class="btn btn-add-to-cart div-carrito "><i class="fas fa-shopping-cart me-2"></i> Carrito</a>
-                    </button>
+                    <div class="modulo-carrito">
+                        <a th:href="@{/carrito/productos}" class="btn btn-add-to-cart div-carrito"><i
+                                class="fas fa-shopping-cart me-0"></i> Carrito</a>
+                        <span id="badge" class="badge badge-light">0</span>
+                    </div>
 
                     <button id="themeToggle" class="btn btn-outline-secondary me-2">
                         <i class="fas fa-moon"></i>
@@ -88,22 +95,37 @@
         <!-- Categorías de comidas -->
         <div class="row mb-4">
             <div class="col-12">
-                <h3 id="entradas" class="category-title mb-3" data-bs-toggle="collapse" data-bs-target="#entradasCollapse">
+                <h3 id="entradas" class="category-title mb-3" data-bs-toggle="collapse"
+                    data-bs-target="#entradasCollapse">
                     <i class="fas fa-chevron-down me-2"></i>Entradas
                 </h3>
                 <div class="collapse show" id="entradasCollapse">
-                    <div class="row row-cols-1 row-cols-md-3 g-4" >
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
                         <div class="col" th:each="p:${productos}" th:if="entrada==${p.categoria}">
-                            <div class="card h-100 d-flex justify-content-center align-items-center p-3">
-                                <img th:src="@{/imagenes/{img}(img=${p.imagen})}" class="card-img-top" alt="parrillada">
+                            <div class="card h-100">
                                 <div class="card-body text-center">
-                                    <h5 class="card-title" th:text="${p.nombre}">Parrillada</h5>
-                                    <p class="card-text price-tag" th:text="${p.precio}">s/.30.00</p>
-                                    <button class="btn btn-add-to-cart">Agregar al carrito</button>
+                                    <button type="button" class="border border-0" data-bs-toggle="modal"
+                                            data-bs-target="#staticBackdrop" 
+                                            th:attr="data-id=${p.id}, 
+                                                    data-nombre=${p.nombre}, 
+                                                    data-descripcion=${p.descripcion}, 
+                                                    data-categoria=${p.categoria}, 
+                                                    data-precio=${p.precio}, data-stock=${p.stock}, data-imagen=${p.imagen}">
+                                            Haz click para ver detalles
+                                            <img th:src="@{/imagenes/{img}(img=${p.imagen})}" class="card w-100"
+                                        alt="parrillada">
+                                        </button>
+                                    
+                                    <h5 class="card-title mt-2" th:text="${p.nombre}"></h5>
+                                    <p class="card-text price-tag">S/. <span th:text="${p.precio}"></span></p>
+                                 
+                                        <button class="col-8 btn btn-add-to-cart">Agregar al carrito</button>
+                                        
+                                    
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -112,7 +134,8 @@
         <!-- Otras categorías -->
         <div class="row mb-4">
             <div class="col-12">
-                <h3 id="principales" class="category-title mb-3" data-bs-toggle="collapse" data-bs-target="#platosCollapse">
+                <h3 id="principales" class="category-title mb-3" data-bs-toggle="collapse"
+                    data-bs-target="#platosCollapse">
                     <i class="fas fa-chevron-down me-2"></i>Platos Principales
                 </h3>
                 <div class="collapse show" id="platosCollapse">
@@ -120,14 +143,15 @@
                         <div class="col" th:each="p:${productos}" th:if="principal==${p.categoria}">
                             <div class="card h-100">
                                 <div class="card-body text-center">
-                                    <img th:src="@{/imagenes/{img}(img=${p.imagen})}" class="card w-100" th:alt="${p.nombre}">
-                                    <h5 class="card-title" th:text="${p.nombre}">Chicharrones</h5>
-                                    <p class="card-text price-tag" th:text="${p.precio}">s/.20.00</p>
+                                    <img th:src="@{/imagenes/{img}(img=${p.imagen})}" class="card w-100"
+                                        th:alt="${p.nombre}">
+                                    <h5 class="card-title mt-2" th:text="${p.nombre}">Chicharrones</h5>
+                                    <p class="card-text price-tag">S/. <span th:text="${p.precio}"></span></p>
                                     <button class="btn btn-add-to-cart">Agregar al carrito</button>
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -135,7 +159,8 @@
 
         <div class="row mb-4">
             <div class="col-12">
-                <h3 id="principales" class="category-title mb-3" data-bs-toggle="collapse" data-bs-target="#postresCollapse">
+                <h3 id="principales" class="category-title mb-3" data-bs-toggle="collapse"
+                    data-bs-target="#postresCollapse">
                     <i class="fas fa-chevron-down me-2"></i>Postres
                 </h3>
                 <div class="collapse show" id="postresCollapse">
@@ -143,14 +168,15 @@
                         <div class="col" th:each="p:${productos}" th:if="postre==${p.categoria}">
                             <div class="card h-100">
                                 <div class="card-body text-center">
-                                    <img th:src="@{/imagenes/{img}(img=${p.imagen})}" class="card w-100" th:alt="${p.nombre}">
-                                    <h5 class="card-title" th:text="${p.nombre}">Chicharrones</h5>
-                                    <p class="card-text price-tag" th:text="${p.precio}">s/.20.00</p>
+                                    <img th:src="@{/imagenes/{img}(img=${p.imagen})}" class="card w-100"
+                                        th:alt="${p.nombre}">
+                                    <h5 class="card-title mt-2" th:text="${p.nombre}">Chicharrones</h5>
+                                    <p class="card-text price-tag">S/. <span th:text="${p.precio}"></span></p>
                                     <button class="btn btn-add-to-cart">Agregar al carrito</button>
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -158,7 +184,8 @@
 
         <div class="row mb-4">
             <div class="col-12">
-                <h3 id="refrescos" class="category-title mb-3" data-bs-toggle="collapse" data-bs-target="#refrescosCollapse">
+                <h3 id="refrescos" class="category-title mb-3" data-bs-toggle="collapse"
+                    data-bs-target="#refrescosCollapse">
                     <i class="fas fa-chevron-down me-2"></i>Refrescos
                 </h3>
                 <div class="collapse show" id="refrescosCollapse">
@@ -166,15 +193,50 @@
                         <div class="col" th:each="p:${productos}" th:if="refresco==${p.categoria}">
                             <div class="card h-100">
                                 <div class="card-body text-center">
-                                    <img th:src="@{/imagenes/{img}(img=${p.imagen})}" class="card w-100" th:alt="${p.nombre}">
-                                    <h5 class="card-title" th:text="${p.nombre}">Chicharrones</h5>
-                                    <p class="card-text price-tag" th:text="${p.precio}">s/.20.00</p>
+                                    <img th:src="@{/imagenes/{img}(img=${p.imagen})}" class="card w-100"
+                                        th:alt="${p.nombre}">
+                                    <h5 class="card-title mt-2" th:text="${p.nombre}">Chicharrones</h5>
+                                    <p class="card-text price-tag">S/. <span th:text="${p.precio}"></span></p>
                                     <button class="btn btn-add-to-cart">Agregar al carrito</button>
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Button trigger modal -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <img id="modalProductImage" src="" class="card w-100" alt="Imagen del Producto">
+                        </div>
+                        <div class="col">
+                            <h5 class="card-title mt-2" id="modalProductName"></h5>
+                            <p class="card-text price-tag">S/. <span id="modalProductPrice"></span></p>
+                            <p class="card-text" id="modalProductDescription"></p>
+                            <p class="card-text badge badge-success text-dark" >Stock: <span id="modalProductStock"></span></p>
+                            <p class="card-text bg-success text-white" >Categoria: <span id="modalProductCategoria"></span></p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-add-to-cart" data-bs-dismiss="modal">Agregar al carrito</button>
                 </div>
             </div>
         </div>
@@ -185,7 +247,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <h5>Cevicheria El pez marino	</h5>
+                    <h5>Cevicheria El pez marino </h5>
                     <p class="p-0 m-0">Los mejores sabores marinos del Perú</p>
                     <p class="p-0">Derechos reservados &copy; 2025 El pez marino</p>
                 </div>
@@ -193,7 +255,7 @@
                     <h5>Horario</h5>
                     <p>Lunes a Domingo: 10am - 10pm</p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 text-center">
                     <h5>Contacto</h5>
                     <p><i class="fas fa-phone me-2"></i> (01) 123-4567</p>
                     <p><i class="fas fa-envelope me-2"></i> info@restaurante.com</p>
@@ -204,7 +266,10 @@
 
     <!-- Bootstrap JS y Popper -->
     <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
-    <script th:src="@{/js/menu.js}"></script>       
-    
+    <script th:src="@{/js/menu.js}"></script>
+    <script th:src="@{/js/carritoCompras.js}"></script>
+    <script th:src="@{/js/detalleProducto.js}"></script>
+
 </body>
+
 </html>

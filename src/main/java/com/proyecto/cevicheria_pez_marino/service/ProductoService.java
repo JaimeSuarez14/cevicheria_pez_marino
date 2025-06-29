@@ -29,8 +29,12 @@ public class ProductoService {
         return productoRepository.findById(id);
     }
 
-    public void delete(Integer id) {
+    public void eliminarProducto(Integer id) {
         productoRepository.deleteById(id);
+    }
+
+    public boolean existsByNombre(String nombre) {
+        return productoRepository.existsByNombre(nombre);
     }
 
     
