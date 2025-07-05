@@ -74,7 +74,7 @@ public class UsuarioService {
             admin.setUsername("admin");
             admin.setEmail("admin@elpezmarino.com");
             admin.setPassword("admin123");
-            admin.setCelular("999999999");
+            admin.setTelefono("999999999");
             admin.setDireccion("Lima, Perú");
             admin.setRol("ADMIN");
             

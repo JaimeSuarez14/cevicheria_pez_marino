@@ -98,7 +98,7 @@ body {
     padding: 5px;
     border-radius: 50%;
 }
-.btn-add-to-cart:hover {
+.btn-add-to-cart:hover,.div-carrito:hover {
     background-color: #0b5ed7;
     transform: scale(1.05);
     color: rgba(255, 255, 255, 0.774);
@@ -109,7 +109,7 @@ body {
     background-color: #1e88e5;
 }
 
-.dark-mode .btn-add-to-cart:hover {
+.dark-mode .btn-add-to-cart:hover,.div-carrito:hover {
     background-color: #1976d2;
 }
 

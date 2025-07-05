@@ -20,7 +20,7 @@ public class WebSecurityConfig {
             .csrf(csrf -> csrf.disable()) // Deshabilitar CSRF para simplificar el ejemplo
             .authorizeHttpRequests( auth -> auth
                 .requestMatchers("/", "/index", "/css/**", "/js/**", "/img/**", "/imagenes/**").permitAll() // Permitir acceso a recursos estáticos y páginas públicas
-                .requestMatchers("/usuario/login", "/usuario/registro").permitAll() // Permitir acceso a login y registro
+                .requestMatchers("/usuario/login", "/usuario/registro", "/administracion/verProducto/**").permitAll() // Permitir acceso a login y registro
                 .requestMatchers("/principal/**", "/carrito/**", "/reserva/**").permitAll() // Permitir acceso a páginas públicas
                 .requestMatchers("/administracion/**").hasRole("ADMIN") // Solo administradores pueden acceder
                 .anyRequest().authenticated() // Requerir autenticación para cualquier otra solicitud

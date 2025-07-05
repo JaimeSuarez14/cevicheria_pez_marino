@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.proyecto.cevicheria_pez_marino.model.Producto;
 import com.proyecto.cevicheria_pez_marino.service.ProductoService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -30,7 +31,8 @@ public class HomeController {
     }
 
     @GetMapping("/principal/menu")
-    public String menuComidas(Model model){
+    public String menuComidas(Model model, HttpSession session){
+        session.setAttribute("listaCarrito", session.getAttribute("listaCarrito"));
         model.addAttribute("productos", productoService.findAll());
         return "menu_comidas";
     }
@@ -41,10 +43,12 @@ public class HomeController {
     }
 
     @PostMapping("/principal/buscar")
-    public String buscarProducto(@RequestParam("busqueda") String busqueda, Model model) {
+    public String buscarProducto(@RequestParam("busqueda") String busqueda, Model model, HttpSession session) {
 
         List<Producto> productos = productoService.buscarPorNombre(busqueda);
         model.addAttribute("productos", productos);
+
+        session.setAttribute("listaCarrito", session.getAttribute("listaCarrito"));
 
         //obtener el usuario
         return "menu_comidas";

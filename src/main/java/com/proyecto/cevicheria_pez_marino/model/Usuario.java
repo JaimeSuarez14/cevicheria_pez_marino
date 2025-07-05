@@ -1,18 +1,22 @@
 package com.proyecto.cevicheria_pez_marino.model;
 
+import lombok.Data;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
+import java.io.Serializable;
+
+@Data
 @Entity
 @Table(name = "usuarios")
-public class Usuario {
+public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     private String nombre;
 
@@ -22,7 +26,7 @@ public class Usuario {
 
     private String password;
 
-    private String celular;
+    private String telefono;
 
     private String direccion;
 
@@ -31,22 +35,22 @@ public class Usuario {
     // Constructores
     public Usuario() {}
 
-    public Usuario(String nombre, String username, String email, String password, String celular, String direccion, String rol) {
+    public Usuario(String nombre, String username, String email, String password, String telefono, String direccion, String tipo) {
         this.nombre = nombre;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.celular = celular;
+        this.telefono = telefono;
         this.direccion = direccion;
-        this.rol = rol;
+        this.rol = tipo;
     }
 
     // Getters y Setters
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -82,12 +86,12 @@ public class Usuario {
         this.password = password;
     }
 
-    public String getCelular() {
-        return celular;
+    public String getTelefono() {
+        return telefono;
     }
 
-    public void setCelular(String celular) {
-        this.celular = celular;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public String getDireccion() {
@@ -98,11 +102,11 @@ public class Usuario {
         this.direccion = direccion;
     }
 
-    public String getRol() {
+    public String getTipo() {
         return rol;
     }
 
-    public void setRol(String rol) {
+    public void setTipo(String rol) {
         this.rol = rol;
     }
 
@@ -113,9 +117,9 @@ public class Usuario {
                 ", nombre='" + nombre + '\'' +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
-                ", celular='" + celular + '\'' +
+                ", telefono='" + telefono + '\'' +
                 ", direccion='" + direccion + '\'' +
-                ", rol='" + rol + '\'' +
+                ", tipo='" + rol + '\'' +
                 '}';
     }
 }

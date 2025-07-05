@@ -68,11 +68,11 @@ public class AdminController {
         //obtenemos el username
         String username = authentication.getName();
         
-        //obtenmos el usuario
+        //obtenemos el usuario
         Optional<Usuario> usuarioOptional = usuarioService.buscarPorUsername(username);
         Usuario usuario = usuarioOptional.get(); 
         
-        //obtenmos la imagen
+        //obtenemos la imagen
         String imagen = upload.saveImage(file);
 
         //Creamos un nuevo producto
@@ -93,7 +93,7 @@ public class AdminController {
     }
     
 
-    @GetMapping("/enviarProducto/{id}")
+    @GetMapping("/verProducto/{id}")
     @ResponseBody
     public ResponseEntity<Producto>  enviarProducto(@PathVariable("id") int id){
         Optional<Producto> productoOptional = productoService.findById(id);
@@ -165,7 +165,6 @@ public class AdminController {
 
         return ResponseEntity.ok(Map.of("success", "Producto actualizado correctamente"));
     }
-
 
 
     @GetMapping("/eliminarProducto/{id}")

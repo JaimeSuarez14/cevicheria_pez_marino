@@ -40,7 +40,7 @@ public class UsuarioController {
         if (StringUtils.isBlank(usuario.getNombre()) ||
                 StringUtils.isBlank(usuario.getUsername()) ||
                 StringUtils.isBlank(usuario.getDireccion()) ||
-                StringUtils.isBlank(usuario.getCelular()) ||
+                StringUtils.isBlank(usuario.getTelefono()) ||
                 StringUtils.isBlank(usuario.getPassword())) {
             model.addAttribute("error", "Todos los campos son obligatorios");
             return "usuario/registro";
