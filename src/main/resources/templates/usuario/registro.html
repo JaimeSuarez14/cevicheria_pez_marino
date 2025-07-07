@@ -89,7 +89,7 @@
             <div class="col-12 ">
                 <div class="card d-flex flex-row align-items-center justify-content-between">
                     <div class="text-primary d-flex align-items-center p-0 mb-0">
-                        <a th:href="@{/usuario/login}" href=""><i class="icono-caretLeft mr-5 mt-2 p-0 "></i></a>
+                        <a <a th:href="@{/usuario/login(continue=${request.getRequestURI()})}"><i class="icono-caretLeft mr-5 mt-2 p-0 "></i></a>
                         <span class="fw-bold fs-3 m-0 p-0" style="max-width: 300px;flex: 0 0 300px; white-space: nowrap;">Cevicheria El pez marino</span>
                     </div>
                     <h3 class="text-center display-4 fs-bold fs-3 shadow m-1">Registrarse</h3>
@@ -171,25 +171,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-4 mt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h5>Cevicheria Pez Marino</h5>
-                    <p>Los mejores sabores del Perú</p>
-                </div>
-                <div class="col-md-4">
-                    <h5>Horario</h5>
-                    <p>Lunes a Domingo: 10am - 10pm</p>
-                </div>
-                <div class="col-md-4 text-center">
-                    <h5>Contacto</h5>
-                    <p><i class="fas fa-phone me-2"></i> (01) 123-4567</p>
-                    <p><i class="fas fa-envelope me-2"></i> info@restaurante.com</p>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <div th:replace="~{Componentes/footer_login:: footer}"></div>
 
     <!-- Bootstrap JS y Popper -->
     <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>

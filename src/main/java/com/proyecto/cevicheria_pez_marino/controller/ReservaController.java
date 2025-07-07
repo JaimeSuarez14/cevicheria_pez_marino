@@ -1,8 +1,11 @@
 package com.proyecto.cevicheria_pez_marino.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/reserva")
@@ -29,7 +32,8 @@ public class ReservaController {
     }
 
     @GetMapping("/datos")
-    public String reserva5(){
+    public String reserva5(HttpServletRequest request, Model model) {
+        model.addAttribute("request", request);
         return "ventana_reserva5";
     }
 }

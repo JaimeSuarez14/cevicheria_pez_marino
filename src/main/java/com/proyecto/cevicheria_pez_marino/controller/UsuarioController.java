@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import io.micrometer.common.util.StringUtils;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/usuario")
@@ -25,15 +26,21 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping("/login")
-    public String login(@RequestParam(value = "error", required = false) String error, Model model) {
+    public String login(@RequestParam(value = "error", required = false) String error, 
+                       @RequestParam(value = "continue", required = false) String continueUrl, 
+                       Model model) {
         if (error != null) {
             model.addAttribute("error", "Usuario o contraseña incorrectos");
+        }
+        if (continueUrl != null) {
+            model.addAttribute("continueUrl", continueUrl);
         }
         return "usuario/login";
     }
 
     @GetMapping("/registro")
-    public String registro() {
+    public String registro(HttpServletRequest request, Model model) {
+        model.addAttribute("request", request);
         return "usuario/registro";
     }
 

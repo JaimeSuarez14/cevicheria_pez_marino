@@ -238,12 +238,18 @@
                 text-align: left;
             }
         }
+
+        .posicion-alerta{
+            position: absolute;
+            right: 12px;
+            bottom: 12px;
+        }
     </style>
 </head>
 
 <body>
     <div class="container main-container">
-        <div th:if="${mensaje}" class="alert alert-info alert-dismissible fade show position-fixed" role="alert">
+        <div th:if="${mensaje}" class="alert alert-info alert-dismissible fade show posicion-alerta" role="alert">
             <span th:text="${mensaje}"></span>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>

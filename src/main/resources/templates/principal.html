@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El pez marino</title>
     <link th:href="@{/css/principal.css}" rel="stylesheet">
-    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css}" rel="stylesheet"
+        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css}" rel="stylesheet">
-    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js}" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js}"
+        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -43,32 +46,40 @@
                 <!--BOOTSTRAP BANNER-->
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
-                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                            class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                            aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                            aria-label="Slide 3"></button>
                     </div>
                     <div class="carousel-inner">
-                      <div class="carousel-item active">
-                        <img th:src="@{https://mariskito.com/blog/wp-content/uploads/2016/02/mariscada.jpg}" class="d-block w-100" alt="...">
-                      </div>
-                      <div class="carousel-item">
-                        <img th:src="@{https://mejorconsalud.as.com/wp-content/uploads/2021/01/plato-mariscos.jpg}" class="d-block w-100" alt="...">
-                      </div>
-                      <div class="carousel-item">
-                        <img th:src="@{https://comidasperuanas.com.pe/wp-content/uploads/2023/05/arroz_con_mariscos.jpeg}" class="d-block w-100" alt="...">
-                      </div>
+                        <div class="carousel-item active">
+                            <img th:src="@{https://mariskito.com/blog/wp-content/uploads/2016/02/mariscada.jpg}"
+                                class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img th:src="@{https://mejorconsalud.as.com/wp-content/uploads/2021/01/plato-mariscos.jpg}"
+                                class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img th:src="@{https://comidasperuanas.com.pe/wp-content/uploads/2023/05/arroz_con_mariscos.jpeg}"
+                                class="d-block w-100" alt="...">
+                        </div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Previous</span>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Next</span>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
                     </button>
-                  </div>
+                </div>
 
-                <div class="banner-descripcion" >
+                <div class="banner-descripcion">
                     <h1>El pez marino</h1>
                     <div class="banner-logo"><img th:src="@{/img/logo.jpg}" alt="logo" class="logo">
                     </div>
@@ -83,17 +94,17 @@
                 <div class="iniciarSesion">
                     <!-- Botones para usuarios NO autenticados -->
                     <div sec:authorize="!isAuthenticated()">
-                        <a th:href="@{/usuario/login}" class="btn btn-primary">Iniciar Sesión</a>
+                        <a th:href="@{/usuario/login(continue=${request.getRequestURI()})}" class="btn btn-primary">Iniciar Sesión</a>
                         <a th:href="@{/usuario/registro}" class="btn btn-secondary">Registrarse</a>
                     </div>
-                    
+
                     <!-- Botones para usuarios autenticados -->
                     <div sec:authorize="isAuthenticated()" class="d-flex gap-2">
                         <!-- Botón de administrador solo para usuarios con rol ADMIN -->
                         <div sec:authorize="hasRole('ADMIN')">
                             <a th:href="@{/administracion/home}" class="btn btn-success">Administrador</a>
                         </div>
-                        
+
                         <!-- Botón de cerrar sesión para todos los usuarios autenticados -->
                         <form id="logoutForm" action="/logout" method="post" style="display:inline;">
                             <button type="submit" class="btn btn-danger">
@@ -110,18 +121,22 @@
                     <div class="col">
                         <div class="texto-contenido text-dark shadow p-3 mb-5 bg-body-tertiary rounded">
                             <h2>QUIENES SOMOS?</h2>
-                        <p>Bienvenidos a tu cevichería El pez marino, donde la pasión por la comida y la excelencia se fusionan para ofrecerte una experiencia gastronómica excepcional.</p>
-                        <p> Nuestro equipo está formado por apasionados chefs y amantes de la buena comida, que trabajan arduamente para
-                            crear platos que deleiten tus sentidos y te hagan sentir como en casa. Desde nuestros</p>
+                            <p>Bienvenidos a tu cevichería El pez marino, donde la pasión por la comida y la excelencia
+                                se fusionan para ofrecerte una experiencia gastronómica excepcional.</p>
+                            <p> Nuestro equipo está formado por apasionados chefs y amantes de la buena comida, que
+                                trabajan arduamente para
+                                crear platos que deleiten tus sentidos y te hagan sentir como en casa. Desde nuestros
+                            </p>
                         </div>
                     </div>
                     <div class="col">
                         <div class="img-comida">
-                            <img th:src="@{https://img.mesa247.pe/archivos/webpages/1707-Seccion1FotoGrande-1708976051.gif}" alt="" data-aos-duration:"1000">
+                            <img th:src="@{https://img.mesa247.pe/archivos/webpages/1707-Seccion1FotoGrande-1708976051.gif}"
+                                alt="" data-aos-duration:"1000">
                         </div>
-                    </div>     
+                    </div>
                 </div>
-            </div>  
+            </div>
         </section>
         <!-- After somos section -->
         <section class="nuestra-comida" id="comida">
@@ -129,23 +144,30 @@
                 <div class="row d-flex justify-content-center align-items-center">
                     <div class="col">
                         <div class="img-comida">
-                            <img th:src="@{https://img.mesa247.pe/archivos/webpages/1707-Seccion2FotoGrande-0-1742599143.gif}" alt="Nuestros platos">
+                            <img th:src="@{https://img.mesa247.pe/archivos/webpages/1707-Seccion2FotoGrande-0-1742599143.gif}"
+                                alt="Nuestros platos">
                         </div>
-                        
+
                     </div>
                     <div class="col">
                         <div class="texto-contenido text-dark shadow p-3 bg-body-tertiary rounded">
                             <h2>NUESTRA COMIDA</h2>
-                            <p>Descubre nuestra exquisita selección de platos marinos, preparados con los ingredientes más frescos y las mejores técnicas culinarias. Nuestro menú incluye:</p>
+                            <p>Descubre nuestra exquisita selección de platos marinos, preparados con los ingredientes
+                                más frescos y las mejores técnicas culinarias. Nuestro menú incluye:</p>
                             <ul class="menu-destacados">
-                                <li>Ceviche clásico<span class="vista-previa"><img th:src="@{/img/ceviche-clasico.jpg}" alt=""></span></li>
-                                <li>Arroz con mariscos <span class="vista-previa"><img th:src="@{/img/arroz_con_marizcos.jpg}" alt=""></span></li>
-                                
-                                <li>Chicharrón de pescado <span class="vista-previa"><img th:src="@{/img/chicha-pescado.jpg}" alt=""></span></li>
-                                
-                                <li>Sudado de pescado<span class="vista-previa"><img th:src="@{https://www.recetasdecamaron.com/wp-content/uploads/2021/02/Receta-de-Pescado-SUDADO.png}" alt=""></span></li>
-                                
-                                
+                                <li>Ceviche clásico<span class="vista-previa"><img th:src="@{/img/ceviche-clasico.jpg}"
+                                            alt=""></span></li>
+                                <li>Arroz con mariscos <span class="vista-previa"><img
+                                            th:src="@{/img/arroz_con_marizcos.jpg}" alt=""></span></li>
+
+                                <li>Chicharrón de pescado <span class="vista-previa"><img
+                                            th:src="@{/img/chicha-pescado.jpg}" alt=""></span></li>
+
+                                <li>Sudado de pescado<span class="vista-previa"><img
+                                            th:src="@{https://www.recetasdecamaron.com/wp-content/uploads/2021/02/Receta-de-Pescado-SUDADO.png}"
+                                            alt=""></span></li>
+
+
                             </ul>
                         </div>
                     </div>
@@ -156,48 +178,52 @@
         <section class="horarios" id="horarios">
             <div class="container text-center">
                 <div class="row">
-                  <div class="col">
-                    <div class="texto-contenido text-dark shadow p-3 mb-5 bg-body-tertiary rounded">
-                        <h2>HORARIOS DE ATENCIÓN</h2>
-                        <div class="horario-detalle">
-                            <p><strong>Lunes a Viernes:</strong> 11:00 AM - 10:00 PM</p>
-                            <p><strong>Sábados y Domingos:</strong> 11:00 AM - 11:00 PM</p>
-                            <p><strong>Feriados:</strong> 12:00 PM - 10:00 PM</p>
+                    <div class="col">
+                        <div class="texto-contenido text-dark shadow p-3 mb-5 bg-body-tertiary rounded">
+                            <h2>HORARIOS DE ATENCIÓN</h2>
+                            <div class="horario-detalle">
+                                <p><strong>Lunes a Viernes:</strong> 11:00 AM - 10:00 PM</p>
+                                <p><strong>Sábados y Domingos:</strong> 11:00 AM - 11:00 PM</p>
+                                <p><strong>Feriados:</strong> 12:00 PM - 10:00 PM</p>
+                            </div>
                         </div>
-                    </div>
                     </div>
                     <div class="col">
                         <div class="img-comida">
-                            <img th:src="@{https://img.mesa247.pe/archivos/webpages/1707-Seccion2FotoGrande-0-1742599143.gif}" alt="Nuestros platos">
+                            <img th:src="@{https://img.mesa247.pe/archivos/webpages/1707-Seccion2FotoGrande-0-1742599143.gif}"
+                                alt="Nuestros platos">
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
         </section>
 
         <section class="ubicacion m-5" id="ubicacion">
-                    <div class="container text-center">
-                        <div class="row">
-                          <div class="col">
-                            <div class="mapa d-flex border-radius">
-                                <!-- Add your Google Maps iframe here -->
-                                <iframe th:src="@{https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5517.96851081763!2d-77.05453063405727!3d-12.057762147755524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c5f619ee3ec7%3A0x14206cb9cc452e4a!2sLima!5e0!3m2!1ses!2spe!4v1749513477863!5m2!1ses!2spe}" height="480"  style="max-width: 600px; min-width:600px; border-radius: 15px;" allowfullscreen="" loading="lazy"></iframe>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="texto-contenido text-dark shadow p-3 mb-5 bg-body-tertiary rounded">
-                                <h2>ENCUÉNTRANOS</h2>
-                                <p><strong>Dirección:</strong> Av. Principal 123, Lima</p>
-                                <p><strong>Teléfono:</strong> (01) 123-4567</p>
-                                <p><strong>Email:</strong> contacto@elpezmarino.com</p>
-                            </div>
-
-                            
-                          </div>
-                        
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col">
+                        <div class="mapa d-flex border-radius">
+                            <!-- Add your Google Maps iframe here -->
+                            <iframe
+                                th:src="@{https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5517.96851081763!2d-77.05453063405727!3d-12.057762147755524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c5f619ee3ec7%3A0x14206cb9cc452e4a!2sLima!5e0!3m2!1ses!2spe!4v1749513477863!5m2!1ses!2spe}"
+                                height="480" style="max-width: 600px; min-width:600px; border-radius: 15px;"
+                                allowfullscreen="" loading="lazy"></iframe>
                         </div>
                     </div>
+                    <div class="col">
+                        <div class="texto-contenido text-dark shadow p-3 mb-5 bg-body-tertiary rounded">
+                            <h2>ENCUÉNTRANOS</h2>
+                            <p><strong>Dirección:</strong> Av. Principal 123, Lima</p>
+                            <p><strong>Teléfono:</strong> (01) 123-4567</p>
+                            <p><strong>Email:</strong> contacto@elpezmarino.com</p>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
         </section>
 
         <footer class="bg-dark text-white p-3 m-0">
@@ -210,8 +236,12 @@
             </div>
         </footer>
     </div>
-    <script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js}" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.min.js}" integrity="sha384-VQqxDN0EQCkWoxt/0vsQvZswzTHUVOImccYmSyhJTp7kGtPed0Qcx8rK9h9YEgx+" crossorigin="anonymous"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js}"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.min.js}"
+        integrity="sha384-VQqxDN0EQCkWoxt/0vsQvZswzTHUVOImccYmSyhJTp7kGtPed0Qcx8rK9h9YEgx+"
+        crossorigin="anonymous"></script>
     <script type="module" th:src="@{https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js}"></script>
     <script nomodule th:src="@{https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js}"></script>
 </body>

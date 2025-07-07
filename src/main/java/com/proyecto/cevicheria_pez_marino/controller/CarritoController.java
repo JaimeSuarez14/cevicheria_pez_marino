@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.proyecto.cevicheria_pez_marino.dto.Cupon;
 import com.proyecto.cevicheria_pez_marino.dto.ListaCarrito;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -46,15 +47,16 @@ public class CarritoController {
     }
 
     @GetMapping("/productos") // Para mostar la ventana de carrito
-    public String verVentanaProductos(Model model, HttpSession session) {
+    public String verVentanaProductos(Model model, HttpSession session, RedirectAttributes redirectAttributes) {
 
         @SuppressWarnings("unchecked")
-
         List<ListaCarrito> listaDeLaSession = (List<ListaCarrito>) session.getAttribute("listaCarrito");
 
-        if (listaDeLaSession == null) {
+        if (listaDeLaSession == null || listaDeLaSession.isEmpty()) {
             listaDeLaSession = new ArrayList<>(); // Si no hay carrito en sesión, inicializa una lista vacía para
-                                                  // mostrar.
+            redirectAttributes.addFlashAttribute("mensajeNotificacion", "Carrito vacío, por favor agregue productos.");
+            redirectAttributes.addFlashAttribute("tipoNotificacion", "danger"); // Para que sea rojo
+            return "redirect:/principal/menu";        // mostrar.
         }
 
         model.addAttribute("listaCarrito", listaDeLaSession);
@@ -130,7 +132,8 @@ public class CarritoController {
     }
 
     @GetMapping("/cliente")
-    public String verVentanaCliente() {
+    public String verVentanaCliente(HttpServletRequest request, Model model) {
+        model.addAttribute("request", request); 
         return "Carrito/cliente";
     }
 

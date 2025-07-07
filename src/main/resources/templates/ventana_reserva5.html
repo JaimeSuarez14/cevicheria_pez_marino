@@ -154,7 +154,7 @@
                 
                 <div class="row mb-4">
                     <div class="col-6">
-                        <a th:href="@{/usuario/login}" class="social-login-btn login-btn btn-secondary">
+                        <a th:href="@{/usuario/login(continue=${request.getRequestURI()})}"  class="social-login-btn login-btn btn-secondary">
                             <span class="me-2">Iniciar Sesion</span>
                         </a>
                     </div>

@@ -88,19 +88,39 @@
             <div class="col-12">
                 <div class="card d-flex flex-row align-items-center flex-wrap justify-content-between">
                     <div class="text-primary d-flex align-items-center p-0 mb-0">
-                        <a th:href="@{/}"><i class="icono-caretLeft mr-5 mt-2 p-0 text-success"></i></a>
+                        
+                        <a th:if="${continueUrl == null or #strings.isEmpty(continueUrl) or '/usuario/registro'.equals(continueUrl)}"
+                            th:href="@{/principal}" class="back-button default-back-button">
+                            <i class="icono-caretLeft mr-5 mt-2 p-0 text-success"></i></a>
+
+                        <a th:if="${continueUrl != null and !#strings.isEmpty(continueUrl) and !'/usuario/registro'.equals(continueUrl)}" th:href="${continueUrl}"><i
+                                class="icono-caretLeft mr-5 mt-2 p-0 text-success"></i></a>
                         <span class="fw-bold fs-3 m-0 p-0"
                             style="max-width: 300px; flex: 0 0 300px; white-space: nowrap">Cevicheria El pez
                             marino</span>
                     </div>
                     <h3 class="text-center fs-5 shadow p-2 m-1">Menu de Login</h3>
                 </div>
-                <hr/>
+                <hr />
             </div>
 
             <div class="col">
+                <!-- Mostrar mensaje de error si existe -->
+                <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <span th:text="${error}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+
+
                 <form class="form-horizontal d-flex flex-column gap-2" th:action="@{/usuario/login}" method="post"
                     enctype="multipart/form-data">
+                    <!-- Campo oculto para capturar el parámetro continue -->
+                    <input type="hidden" name="continue"
+                        th:value="${continueUrl != null ? continueUrl : param.continue}" />
+                    <!-- Campo oculto para la URL de éxito -->
+                    <input type="hidden" name="successUrl"
+                        th:value="@{/login-success(continue=${continueUrl != null ? continueUrl : param.continue})}" />
+
                     <div class="form-group py-2">
                         <label class="control-label col-lg-4 col-sm-6 fw-bold" for="username">Nombre de usuario:</label>
                         <div class="col-sm-10">
@@ -125,31 +145,14 @@
                         </div>
                     </div>
                 </form>
-                <p class="font-weight-bold text-left" >¿No tienes una cuenta? <a th:href="@{/usuario/registro}">Registrate</a></p>
+                <p class="font-weight-bold text-left">¿No tienes una cuenta? <a
+                        th:href="@{/usuario/registro}">Registrate</a></p>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-4 mt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h5>Cevicheria Pez Marino</h5>
-                    <p>Los mejores sabores del Perú</p>
-                </div>
-                <div class="col-md-4">
-                    <h5>Horario</h5>
-                    <p>Lunes a Domingo: 10am - 10pm</p>
-                </div>
-                <div class="col-md-4 text-center">
-                    <h5>Contacto</h5>
-                    <p><i class="fas fa-phone me-2"></i> (01) 123-4567</p>
-                    <p><i class="fas fa-envelope me-2"></i> info@restaurante.com</p>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <div th:replace="~{Componentes/footer_login:: footer}"></div>
 
     <!-- Bootstrap JS y Popper -->
     <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
