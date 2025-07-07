@@ -3,16 +3,23 @@ package com.proyecto.cevicheria_pez_marino.model;
 import lombok.Data;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
-import java.io.Serializable;
+import java.util.Collection;
+import java.util.Collections;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Data
 @Entity
 @Table(name = "usuarios")
-public class Usuario implements Serializable {
+public class Usuario implements  UserDetails {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,9 +69,7 @@ public class Usuario implements Serializable {
         this.nombre = nombre;
     }
 
-    public String getUsername() {
-        return username;
-    }
+
 
     public void setUsername(String username) {
         this.username = username;
@@ -78,9 +83,6 @@ public class Usuario implements Serializable {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
     public void setPassword(String password) {
         this.password = password;
@@ -122,4 +124,49 @@ public class Usuario implements Serializable {
                 ", tipo='" + rol + '\'' +
                 '}';
     }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // Convierte tu campo 'rol' (String) a una colección de GrantedAuthority
+        // Spring Security espera roles con el prefijo "ROLE_"
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + this.rol.toUpperCase()));
+    }
+
+    @Override
+    @Transient // <--- ¡IMPORTANTE! Para que JPA no intente persistir este método como columna
+    public String getPassword() {
+        return password; // Devuelve la contraseña encriptada
+    }
+
+    @Override
+    @Transient // <--- ¡IMPORTANTE! Para que JPA no intente persistir este método como columna
+    public String getUsername() {
+        return username; // Devuelve el nombre de usuario
+    }
+
+    // Métodos de cuenta (generalmente se devuelven true a menos que tengas lógica de bloqueo/expiración)
+    @Override
+    @Transient
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    @Transient
+    public boolean isEnabled() {
+        return true;
+    }
 }
+

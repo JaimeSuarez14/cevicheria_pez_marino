@@ -8,7 +8,7 @@ import com.proyecto.cevicheria_pez_marino.model.Usuario;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     Optional<Usuario> findByEmail(String email);
     Optional<Usuario> findByUsername(String username);
 

@@ -9,6 +9,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.proyecto.cevicheria_pez_marino.dto.Cupon;
 import com.proyecto.cevicheria_pez_marino.dto.ListaCarrito;
+import com.proyecto.cevicheria_pez_marino.model.Usuario;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -132,7 +134,7 @@ public class CarritoController {
     }
 
     @GetMapping("/cliente")
-    public String verVentanaCliente(HttpServletRequest request, Model model) {
+    public String verVentanaCliente(HttpServletRequest request, Model model, @AuthenticationPrincipal Usuario usuarioAutenticado) {
         model.addAttribute("request", request); 
         return "Carrito/cliente";
     }

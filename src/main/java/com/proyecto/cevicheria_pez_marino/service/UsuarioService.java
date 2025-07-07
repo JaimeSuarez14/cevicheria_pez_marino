@@ -49,11 +49,11 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public Optional<Usuario> findById(Long id) {
+    public Optional<Usuario> findById(int id) {
         return usuarioRepository.findById(id);
     }
 
-    public void delete(Long id) {
+    public void delete(int id) {
         usuarioRepository.deleteById(id);
     }
 

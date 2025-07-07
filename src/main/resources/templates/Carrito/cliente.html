@@ -186,8 +186,15 @@
                 <h2 class="section-header">Cliente</h2>
                 <div class="mb-4">
                     <span class="info-label">Información del cliente:</span>
-                    <span class="info-value">
-                        <a class="btn btn-primary text-decoration-none" th:href="@{/usuario/login(continue=${request.getRequestURI()})}">Iniciar Sesion</a></span>
+                    
+                    <div sec:authorize="!isAuthenticated()" >
+                        <span class="info-value">
+                            <a class="btn btn-primary text-decoration-none" th:href="@{/usuario/login(continue=${request.getRequestURI()})}">Iniciar Sesion</a></span>
+                    </div>
+                    <div sec:authorize="isAuthenticated()">
+                        <p>Iniciado sesion con: <span></span></p>
+                    </div>
+                    
                 </div>
                 <span class="info-label">Informacion como invitado:</span>
                 <form>

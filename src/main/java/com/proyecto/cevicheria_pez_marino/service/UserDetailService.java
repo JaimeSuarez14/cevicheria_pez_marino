@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.proyecto.cevicheria_pez_marino.model.Usuario;
 import com.proyecto.cevicheria_pez_marino.repository.UsuarioRepository;
-import org.springframework.security.core.userdetails.User;
 
 @Service
 public class UserDetailService implements UserDetailsService {
@@ -26,14 +25,13 @@ public class UserDetailService implements UserDetailsService {
         }
 
         Usuario user = usuarioOptional.get();
-
-        return User.builder()
-            .username(user.getUsername())
-            .password(user.getPassword())
-            .roles(user.getRol())
-            .build()
-        ; 
+        // Ahora, en lugar de construir un org.springframework.security.core.userdetails.User,
+        // devolvemos directamente tu objeto Usuario, ya que ahora implementa UserDetails.
+        return user; 
+    
     }
     
 
 }
+
+
