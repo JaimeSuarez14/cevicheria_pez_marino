@@ -13,6 +13,7 @@ import com.proyecto.cevicheria_pez_marino.service.UsuarioService;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import io.micrometer.common.util.StringUtils;
 
@@ -24,7 +25,10 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping("/login")
-    public String login() {
+    public String login(@RequestParam(value = "error", required = false) String error, Model model) {
+        if (error != null) {
+            model.addAttribute("error", "Usuario o contraseña incorrectos");
+        }
         return "usuario/login";
     }
 
