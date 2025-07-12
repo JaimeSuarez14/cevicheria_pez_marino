@@ -44,7 +44,7 @@
                                         <tr>
                                             <th scope="col">#</th>
                                             <th scope="col">Nombre</th>
-                                            <th scope="col">Descripcion</th>
+                                            
                                             <th scope="col">Categoria</th>
                                             <th scope="col">Precio</th>
                                             <th scope="col">Stock</th>
@@ -56,7 +56,7 @@
                                         <tr th:each="p,c:${productos}">
                                             <th scope="row">[[${c.count}]]</th>
                                             <td>[[${p.nombre}]]</td>
-                                            <td>[[${p.descripcion}]]</td>
+                                            
                                             <td>[[${p.categoria}]]</td>
                                             <td>[[${p.precio}]]</td>
                                             <td>[[${p.stock}]]</td>

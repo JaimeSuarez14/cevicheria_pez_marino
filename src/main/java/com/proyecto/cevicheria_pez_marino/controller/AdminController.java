@@ -12,7 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,7 +29,7 @@ import lombok.RequiredArgsConstructor;
 
 
 @Controller
-@RequestMapping("/administracion") 
+//@RequestMapping("/administracion") 
 @RequiredArgsConstructor
 public class AdminController {
     
@@ -39,23 +39,24 @@ public class AdminController {
 
     private final UploadFileService upload;
     
-    @GetMapping("/home")
+
+    @GetMapping("/administracion/home")
     public String paginalAdmistrador(){
         return "administracion/home";
     }
 
-    @GetMapping("/lista_productos")
+    @GetMapping("/administracion/lista_productos")
     public String listarProductos(Model model) {
         model.addAttribute("productos", productoService.findAll());
         return "administracion/listaProductos";
     }
     
-    @GetMapping("/verFormularioCrear")
+    @GetMapping("/administracion/verFormularioCrear")
     public String irFormularioCrearProducto() {
         return "administracion/formularioProductos" ;
     }
 
-    @PostMapping("/guardarProducto")
+    @PostMapping("/administracion/guardarProducto")
     public String guardarProducto(Producto producto, @RequestParam("file") MultipartFile file ) throws IOException {
 
         //Obtenemos la session del usuario
@@ -93,7 +94,7 @@ public class AdminController {
     }
     
 
-    @GetMapping("/verProducto/{id}")
+    @GetMapping("/administracion/verProducto/{id}")
     @ResponseBody
     public ResponseEntity<Producto>  enviarProducto(@PathVariable("id") int id){
         Optional<Producto> productoOptional = productoService.findById(id);
@@ -109,7 +110,7 @@ public class AdminController {
     
     
 
-    @PostMapping("/actualizarProducto/{id}")
+    @PostMapping("/administracion/actualizarProducto/{id}")
     @ResponseBody
     public ResponseEntity<Map<String, String>> actualizarProducto(@PathVariable("id") int id, Producto producto, 
     @RequestParam(value = "file", required = false) MultipartFile file, HttpSession session) throws IOException {
@@ -167,7 +168,7 @@ public class AdminController {
     }
 
 
-    @GetMapping("/eliminarProducto/{id}")
+    @GetMapping("/administracion/eliminarProducto/{id}")
     public String eliminarProducto(@PathVariable("id") int id, HttpSession session){
         Optional<Producto> productoOptional = productoService.findById(id);
 

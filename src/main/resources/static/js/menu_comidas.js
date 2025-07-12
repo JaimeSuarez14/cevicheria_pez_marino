@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     addToCartButtons.forEach(button => {
         button.addEventListener('click', async function(e) {
-
+            e.preventDefault();
             const idProducto = e.target.dataset.id;
             const idNumber = parseInt(idProducto);
 
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const index = carrito.findIndex(item => item.producto.id === productoData.id);
                     carrito[index].cantidad++;
                 }else{
-                    carrito.push({producto: productoData, cantidad: 1});
+                    carrito.push({producto: productoData, cantidad: 1, cupon: null});
                 }
 
                 // Actualizar el contador del badge (UI inmediata)
@@ -50,6 +50,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         try{
+            console.log("Enviando carrito al backend:", carrito);
+            console.log("JSON del carrito:", JSON.stringify(carrito));
+            
             const response = await fetch('/carrito/productos', {
                 method: 'POST',
                 headers: {
@@ -83,6 +86,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 mensajeError += ": " + error.message;
             }
             
+            // Mostrar más detalles del error en la consola
+            console.log("Carrito que se intentó enviar:", carrito);
+            console.log("Tipo de datos enviados:", typeof carrito);
+            console.log("Longitud del carrito:", carrito.length);
+            
             alert(mensajeError);
         }
     }
@@ -111,8 +119,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function asignarCantidad(){
-        let cantidad = carrito.reduce((item, index) => {
-            return item + index.cantidad;
+        let cantidad = carrito.reduce((total, item) => {
+            return total + item.cantidad;
         }, 0);
 
         badge.textContent = cantidad;
@@ -128,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     
     function validaSiAgregaronAlCarrito(){
-        if(!(parseInt(badge.textContent) > 0)){
+        if(parseInt(badge.textContent) <= 0){
             alert("No has agregado ningun producto al carrito");
             return true;
         }

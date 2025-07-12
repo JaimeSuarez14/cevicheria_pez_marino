@@ -190,30 +190,34 @@
                     <div sec:authorize="!isAuthenticated()" >
                         <span class="info-value">
                             <a class="btn btn-primary text-decoration-none" th:href="@{/usuario/login(continue=${request.getRequestURI()})}">Iniciar Sesion</a></span>
+                            <span class="info-label">Informacion como invitado:</span>
+                            <form method="post" th:action="@{/carrito/cliente}" >
+                                <div class="row mb-3">
+                                    <div class="col-md-8 form-group-custom">
+                                        <label for="email" class="form-label">Correo electronico:</label>
+                                        <input type="email" class="form-control" name="correo" id="email" placeholder="Josefina@gmail.com" required>
+                                    </div>
+                                    
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-8 form-group-custom">
+                                        <label for="calle" class="form-label">WhatsApp o Celular:</label>
+                                        <input type="text" class="form-control" name="celular" id="calle" placeholder="994100100" required>
+                                    </div>
+                                </div>
+            
+                                <button type="submit" class="btn btn-next-step text-white">Siguiente: Envio</button>
+                            </form>
                     </div>
                     <div sec:authorize="isAuthenticated()">
-                        <p>Iniciado sesion con: <span></span></p>
+                        <p class="m-0">Iniciado sesion con: <span th:text="${usuario.nombre}"></span></p>
+                        <p class="m-0">Tu correo es: <span th:text="${usuario.email}"></span></p>
+                        <p class="m-0">Tu numero es: <span th:text="${usuario.telefono}"></span></p>
+                        <a class=" btn btn-next-step text-white text-decoration-none" th:href="@{/carrito/envio}">Siguiente: Envio</a>
                     </div>
                     
                 </div>
-                <span class="info-label">Informacion como invitado:</span>
-                <form>
-                    <div class="row mb-3">
-                        <div class="col-md-8 form-group-custom">
-                            <label for="nombre" class="form-label">Correo electronico</label>
-                            <input type="email" class="form-control" id="email" placeholder="Josefina@gmail.com">
-                        </div>
-                        
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-8 form-group-custom">
-                            <label for="calle" class="form-label">Whatsapp</label>
-                            <input type="text" class="form-control" id="calle" placeholder="994100100">
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-next-step"><a class="text-white text-decoration-none" th:href="@{/carrito/envio}">Siguiente: Envio</a></button>    
-                </form>
+                
             </div>
 
             <div class="col-md-5">

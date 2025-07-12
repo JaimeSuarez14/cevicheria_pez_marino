@@ -28,7 +28,7 @@ public class UsuarioService {
         String clave = usuario.getPassword();
         if (clave != null && !clave.isEmpty()) {
             // Aquí podrías agregar lógica para encriptar la contraseña si es necesario
-         
+        
             usuario.setPassword(passwordEncoder.encode(clave));
         }
 

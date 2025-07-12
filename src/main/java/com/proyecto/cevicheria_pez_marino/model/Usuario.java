@@ -1,5 +1,6 @@
 package com.proyecto.cevicheria_pez_marino.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -126,6 +127,7 @@ public class Usuario implements  UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // Convierte tu campo 'rol' (String) a una colección de GrantedAuthority
         // Spring Security espera roles con el prefijo "ROLE_"
@@ -134,12 +136,14 @@ public class Usuario implements  UserDetails {
 
     @Override
     @Transient // <--- ¡IMPORTANTE! Para que JPA no intente persistir este método como columna
+    @JsonIgnore
     public String getPassword() {
         return password; // Devuelve la contraseña encriptada
     }
 
     @Override
     @Transient // <--- ¡IMPORTANTE! Para que JPA no intente persistir este método como columna
+    @JsonIgnore
     public String getUsername() {
         return username; // Devuelve el nombre de usuario
     }
@@ -147,24 +151,28 @@ public class Usuario implements  UserDetails {
     // Métodos de cuenta (generalmente se devuelven true a menos que tengas lógica de bloqueo/expiración)
     @Override
     @Transient
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
     @Transient
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
     @Transient
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
     @Transient
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }

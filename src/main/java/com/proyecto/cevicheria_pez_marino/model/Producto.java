@@ -1,5 +1,6 @@
 package com.proyecto.cevicheria_pez_marino.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -25,5 +26,6 @@ public class Producto implements Serializable {
     private int stock;
     private String categoria;
     @ManyToOne
+    @JsonIgnore
     private Usuario usuario;
 }

@@ -39,7 +39,7 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#entradas">Entradas</a></li>
                             <li><a class="dropdown-item" href="#principales">Platos principales</a></li>
-                            <li><a class="dropdown-item" href="#">Postres</a></li>
+                            <li><a class="dropdown-item" href="#postres">Postres</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -86,11 +86,11 @@
         <div class="row mb-4">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body text-center">
-                        <img th:src="@{/img/productos/ceviche.jpg}" class="card w-100" alt="ceviche">
+                    <div class="card-body text-center" th:each="p:${productos}" th:if="${p.nombre == 'Ceviche Clásico'}">
+                        <img th:src="@{/imagenes/{img}(img=${p.imagen})}" class="card w-100" alt="ceviche">
                         <h4 class="card-title">Ceviche</h4>
                         <p class="card-text price-tag">s/.20.00</p>
-                        <button class="btn btn-add-to-cart">Agregar al carrito</button>
+                        <button class="btn btn-add-to-cart" th:data-id="${p.id}">Agregar al carrito</button>
                     </div>
                 </div>
             </div>
@@ -118,7 +118,7 @@
                                             Haz click para ver detalles
                                             <img th:src="@{/imagenes/{img}(img=${p.imagen})}" class="card w-100"
                                         alt="parrillada">
-                                        </button>
+                                    </button>
                                     
                                     <h5 class="card-title mt-2" th:text="${p.nombre}"></h5>
                                     <p class="card-text price-tag">S/. <span th:text="${p.precio}"></span></p>
@@ -147,11 +147,21 @@
                         <div class="col" th:each="p:${productos}" th:if="principal==${p.categoria}">
                             <div class="card h-100">
                                 <div class="card-body text-center">
-                                    <img th:src="@{/imagenes/{img}(img=${p.imagen})}" class="card w-100"
-                                        th:alt="${p.nombre}">
+                                    <button type="button" class="border border-0" data-bs-toggle="modal"
+                                            data-bs-target="#staticBackdrop" 
+                                            th:attr="data-id=${p.id}, 
+                                                    data-nombre=${p.nombre}, 
+                                                    data-descripcion=${p.descripcion}, 
+                                                    data-categoria=${p.categoria}, 
+                                                    data-precio=${p.precio}, data-stock=${p.stock}, data-imagen=${p.imagen}">
+                                            Haz click para ver detalles
+                                            <img th:src="@{/imagenes/{img}(img=${p.imagen})}" class="card w-100"
+                                            th:alt="${p.nombre}">
+                                    </button>
+                                    
                                     <h5 class="card-title mt-2" th:text="${p.nombre}">Chicharrones</h5>
                                     <p class="card-text price-tag">S/. <span th:text="${p.precio}"></span></p>
-                                    <button class="btn btn-add-to-cart">Agregar al carrito</button>
+                                    <button class="btn btn-add-to-cart" th:data-id="${p.id}">Agregar al carrito</button>
                                 </div>
                             </div>
                         </div>
@@ -163,7 +173,7 @@
 
         <div class="row mb-4">
             <div class="col-12">
-                <h3 id="principales" class="category-title mb-3" data-bs-toggle="collapse"
+                <h3 id="postres" class="category-title mb-3" data-bs-toggle="collapse"
                     data-bs-target="#postresCollapse">
                     <i class="fas fa-chevron-down me-2"></i>Postres
                 </h3>
@@ -172,11 +182,21 @@
                         <div class="col" th:each="p:${productos}" th:if="postre==${p.categoria}">
                             <div class="card h-100">
                                 <div class="card-body text-center">
-                                    <img th:src="@{/imagenes/{img}(img=${p.imagen})}" class="card w-100"
-                                        th:alt="${p.nombre}">
+                                    <button type="button" class="border border-0" data-bs-toggle="modal"
+                                            data-bs-target="#staticBackdrop" 
+                                            th:attr="data-id=${p.id}, 
+                                                    data-nombre=${p.nombre}, 
+                                                    data-descripcion=${p.descripcion}, 
+                                                    data-categoria=${p.categoria}, 
+                                                    data-precio=${p.precio}, data-stock=${p.stock}, data-imagen=${p.imagen}">
+                                            Haz click para ver detalles
+                                            <img th:src="@{/imagenes/{img}(img=${p.imagen})}" class="card w-100"
+                                            th:alt="${p.nombre}">
+                                    </button>
+                                    
                                     <h5 class="card-title mt-2" th:text="${p.nombre}">Chicharrones</h5>
                                     <p class="card-text price-tag">S/. <span th:text="${p.precio}"></span></p>
-                                    <button class="btn btn-add-to-cart">Agregar al carrito</button>
+                                    <button class="btn btn-add-to-cart" th:data-id="${p.id}"><i class="fas fa-shopping-cart"></i>Agregar al carrito</button>
                                 </div>
                             </div>
                         </div>
@@ -197,11 +217,20 @@
                         <div class="col" th:each="p:${productos}" th:if="refresco==${p.categoria}">
                             <div class="card h-100">
                                 <div class="card-body text-center">
-                                    <img th:src="@{/imagenes/{img}(img=${p.imagen})}" class="card w-100"
-                                        th:alt="${p.nombre}">
+                                    <button type="button" class="border border-0" data-bs-toggle="modal"
+                                            data-bs-target="#staticBackdrop" 
+                                            th:attr="data-id=${p.id}, 
+                                                    data-nombre=${p.nombre}, 
+                                                    data-descripcion=${p.descripcion}, 
+                                                    data-categoria=${p.categoria}, 
+                                                    data-precio=${p.precio}, data-stock=${p.stock}, data-imagen=${p.imagen}">
+                                            Haz click para ver detalles
+                                            <img th:src="@{/imagenes/{img}(img=${p.imagen})}" class="card w-100"
+                                            th:alt="${p.nombre}">
+                                    </button>
                                     <h5 class="card-title mt-2" th:text="${p.nombre}">Chicharrones</h5>
                                     <p class="card-text price-tag">S/. <span th:text="${p.precio}"></span></p>
-                                    <button class="btn btn-add-to-cart">Agregar al carrito</button>
+                                    <button class="btn btn-add-to-cart" th:data-id="${p.id}">Agregar al carrito</button>
                                 </div>
                             </div>
                         </div>

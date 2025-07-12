@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.proyecto.cevicheria_pez_marino.dto.ListaCarrito;
@@ -19,19 +19,25 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/principal")
+//@RequestMapping("/principal")
 @RequiredArgsConstructor
 public class HomeController {
 
     private final ProductoService productoService;
 
     @GetMapping
+    public String home(HttpServletRequest request, Model model) {
+        model.addAttribute("request", request);
+        return "principal";
+    }
+
+    @GetMapping("/principal")
     public String principal(HttpServletRequest request, Model model) {
         model.addAttribute("request", request);
         return "principal";
     }
 
-    @GetMapping("/menu")
+    @GetMapping("/principal/menu")
     public String menuComidas(Model model, HttpSession session){
 
         @SuppressWarnings("unchecked")
@@ -51,12 +57,12 @@ public class HomeController {
         return "menu_comidas";
     }
 
-    @GetMapping("/pedidos")
+    @GetMapping("/principal/pedidos")
     public String pedidos(){
         return "Pedidos";
     }
 
-    @PostMapping("/buscar")
+    @PostMapping("/principal/buscar")
     public String buscarProducto(@RequestParam("busqueda") String busqueda, Model model, HttpSession session) {
 
         List<Producto> productos = productoService.buscarPorNombre(busqueda);
@@ -69,7 +75,7 @@ public class HomeController {
         
     }
     
-    @GetMapping("/test-protected")
+    @GetMapping("/principal/test-protected")
     public String testProtected() {
         return "test_protected";
     }
