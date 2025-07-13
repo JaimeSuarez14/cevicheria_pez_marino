@@ -454,7 +454,7 @@
 
             <div class="col-md-6">
                 <div class="receipt-card">
-                    <h4 class="text-center mb-1">Boleta Electronica</h4>
+                    <h4 class="text-center mb-1">Boleta Electrónica</h4>
                     <div class="row">
                         <span class="text-center">Cevichería El Pez Marino</span>
                         <span class="text-center">RUC: 20332144514</span>
@@ -548,43 +548,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            function generarCodigoQR() {
-                const inputText = document.getElementById('inputText').value;
-                const qr = new QRious({
-                    element: document.getElementById('qrCanvas'),
-                    value: inputText,
-                    size: 200
-                });
-            }
-            function calcularTotales() {
-
-                const cantidades = document.querySelectorAll('.cantidad');
-                const precios = document.querySelectorAll('.precio');
-                let total = 0;
-
-                for (let i = 0; i < cantidades.length; i++) {
-                    const cantidad = parseInt(cantidades[i].textContent);
-                    const precio = parseFloat(precios[i].textContent);
-                    total += cantidad * precio;
-                }
-
-                const subtotal = total / 1.18; // 18% IGV
-                const igv = subtotal * 0.18;
-
-                // Actualizar los totales en el DOM
-                document.getElementById('subtotal').textContent = 'S/. ' + subtotal.toFixed(2);
-                document.getElementById('igv').textContent = 'S/. ' + igv.toFixed(2);
-                document.getElementById('total').textContent = 'S/. ' + total.toFixed(2);
-            }
-
-
-            generarCodigoQR();
-            calcularTotales()
-        });
-
-    </script>
+    <script th:src="@{/js/resumenCompra.js}"></script>
 </body>
 
 </html>

@@ -1,0 +1,32 @@
+<div th:fragment="resumen_pedido">
+    <h4>Resumen del pedido</h4>
+
+    <div class="mb-3">
+        <h6>Entrega</h6>
+        <div class="btn-group delivery-options" role="group" aria-label="Opciones de entrega">
+            <button type="button" class="btn btn-outline-secondary active">Entrega</button>
+            <button type="button" class="btn btn-outline-secondary">Retiro</button>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <input type="text" class="form-control search-address-input" placeholder="Buscar por una dirección">
+    </div>
+
+    <div class="summary-row">
+        <span>Subtotal:</span>
+        <p>S/. <span class="precioTotal"></span></p>
+    </div>
+    <div class="summary-row">
+        <span>Descuentos:</span>
+        <span>0</span>
+    </div>
+    <form class="coupon-input" method="post" action="/carrito/aplicarCupon">
+        <input type="text" name="codigo" class="form-control form-control-sm" placeholder="Ingresá tu cupon">
+        <button class="btn btn-light btn-sm">Aplicar</button>
+    </form>
+    <div class="summary-row total">
+        <span>Total:</span>
+        <p>S/. <span class="pt"></span></p>
+    </div>
+</div>

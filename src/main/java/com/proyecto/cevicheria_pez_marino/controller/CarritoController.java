@@ -191,8 +191,8 @@ public class CarritoController {
     @PostMapping("/envio")
     public String GuardarInformacionEnvio(@AuthenticationPrincipal Usuario usuarioAutenticado,@ModelAttribute ClienteCarritoInvitado clienteCarritoInvitado, HttpSession session ) {
 
-        ClienteCarritoInvitado cliente = new ClienteCarritoInvitado();
-        cliente = clienteCarritoInvitado;
+        ClienteCarritoInvitado cliente = clienteCarritoInvitado.copiar();
+        
 
         session.setAttribute("clienteInvitado", cliente);
         return "Carrito/pago";
@@ -211,8 +211,20 @@ public class CarritoController {
         return "Carrito/pago";
     }
 
+
     @GetMapping("/finalizar")
-    public String verVentanaFinalizar() {
+    public String verVentanaFinalizar(HttpSession session,Model model, @AuthenticationPrincipal Usuario usuarioAutenticado) {
+        ClienteCarritoInvitado cliente = (ClienteCarritoInvitado) session.getAttribute("clienteInvitado");
+
+        boolean  usuarioLogueado = usuarioAutenticado != null;
+        
+        if( usuarioLogueado){
+            model.addAttribute("usuario", usuarioAutenticado);
+        }else{
+            model.addAttribute("cliente", cliente);
+
+        }
+        
         return "Carrito/finalizar";
     }
 
@@ -248,7 +260,6 @@ public class CarritoController {
     public String crearUsuarioDespuesCarrito(@RequestParam("usuario") String usuario, @RequestParam("password") String password,
     HttpSession session, RedirectAttributes redirectAttributes, Model model) {
         
-        @SuppressWarnings("unchecked")
         ClienteCarritoInvitado cliente = (ClienteCarritoInvitado) session.getAttribute("clienteInvitado");
 
         //redirectAttributes.addAttribute y se recibe en el argumento del metodo  public String detalle(@RequestParam("id")

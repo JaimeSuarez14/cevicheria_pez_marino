@@ -1,12 +1,11 @@
 package com.proyecto.cevicheria_pez_marino.dto;
 
 import lombok.AllArgsConstructor;
-
-
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class ClienteCarritoInvitado {
@@ -61,5 +60,16 @@ public class ClienteCarritoInvitado {
         this.infoAdicional = infoAdicional;
     }
 
-    
+    public ClienteCarritoInvitado copiar(){
+        ClienteCarritoInvitado copia = new ClienteCarritoInvitado();
+        copia.setNombre(this.nombre);
+        copia.setApellido(this.apellido);
+        copia.setCalle(this.calle);
+        copia.setCelular(this.celular);
+        copia.setCorreo(this.correo);
+        copia.setDistrito(this.distrito);
+        copia.setInfoAdicional(this.infoAdicional);
+
+        return copia;
+    }
 }

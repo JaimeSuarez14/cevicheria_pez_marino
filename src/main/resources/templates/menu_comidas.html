@@ -2,9 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú de Comida</title>
+    <th:block  th:replace="~{Componentes/head :: head_title('Panel de Comidas')}"></th:block>
     <!-- Bootstrap CSS -->
     <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css}" rel="stylesheet">
     <!-- Font Awesome para iconos -->
@@ -82,6 +80,10 @@
 
     <!-- Contenido principal -->
     <div class="container">
+        <div th:if="${busquedaRealizada}">
+            <p class="py-3 alert alert-danger" th:if="${productos.empty}">
+            <i class="fas fa-exclamation-circle me-2"></i> No se encontraron productos con la palabra: "<span th:text="${param.busqueda}"></span>"</p>
+        </div>
         <!-- Destacado -->
         <div class="row mb-4">
             <div class="col-12">
@@ -89,7 +91,7 @@
                     <div class="card-body text-center" th:each="p:${productos}" th:if="${p.nombre == 'Ceviche Clásico'}">
                         <img th:src="@{/imagenes/{img}(img=${p.imagen})}" class="card w-100" alt="ceviche">
                         <h4 class="card-title">Ceviche</h4>
-                        <p class="card-text price-tag">s/.20.00</p>
+                        <p class="card-text price-tag">S/. <span th:text="${#numbers.formatDecimal(p.precio,1,2)}"></span></p>
                         <button class="btn btn-add-to-cart" th:data-id="${p.id}">Agregar al carrito</button>
                     </div>
                 </div>
@@ -117,11 +119,11 @@
                                                     data-precio=${p.precio}, data-stock=${p.stock}, data-imagen=${p.imagen}">
                                             Haz click para ver detalles
                                             <img th:src="@{/imagenes/{img}(img=${p.imagen})}" class="card w-100"
-                                        alt="parrillada">
+                                        alt="parrillada" style="height: 180px; object-fit: cover;">
                                     </button>
                                     
                                     <h5 class="card-title mt-2" th:text="${p.nombre}"></h5>
-                                    <p class="card-text price-tag">S/. <span th:text="${p.precio}"></span></p>
+                                    <p class="card-text price-tag">S/. <span th:text="${#numbers.formatDecimal(p.precio,1,2)}"></span></p>
                                  
                                         <button class="col-8 btn btn-add-to-cart" th:data-id="${p.id}">Agregar al carrito</button>
                                         
@@ -156,11 +158,11 @@
                                                     data-precio=${p.precio}, data-stock=${p.stock}, data-imagen=${p.imagen}">
                                             Haz click para ver detalles
                                             <img th:src="@{/imagenes/{img}(img=${p.imagen})}" class="card w-100"
-                                            th:alt="${p.nombre}">
+                                            th:alt="${p.nombre}" style="height: 180px; object-fit: cover;">
                                     </button>
                                     
                                     <h5 class="card-title mt-2" th:text="${p.nombre}">Chicharrones</h5>
-                                    <p class="card-text price-tag">S/. <span th:text="${p.precio}"></span></p>
+                                    <p class="card-text price-tag">S/. <span th:text="${#numbers.formatDecimal(p.precio,1,2)}"></span></p>
                                     <button class="btn btn-add-to-cart" th:data-id="${p.id}">Agregar al carrito</button>
                                 </div>
                             </div>
@@ -191,11 +193,11 @@
                                                     data-precio=${p.precio}, data-stock=${p.stock}, data-imagen=${p.imagen}">
                                             Haz click para ver detalles
                                             <img th:src="@{/imagenes/{img}(img=${p.imagen})}" class="card w-100"
-                                            th:alt="${p.nombre}">
+                                            th:alt="${p.nombre}" style="height: 180px; object-fit: cover;">
                                     </button>
                                     
                                     <h5 class="card-title mt-2" th:text="${p.nombre}">Chicharrones</h5>
-                                    <p class="card-text price-tag">S/. <span th:text="${p.precio}"></span></p>
+                                    <p class="card-text price-tag">S/. <span th:text="${#numbers.formatDecimal(p.precio,1,2)}"></span></p>
                                     <button class="btn btn-add-to-cart" th:data-id="${p.id}"><i class="fas fa-shopping-cart"></i>Agregar al carrito</button>
                                 </div>
                             </div>
@@ -226,10 +228,10 @@
                                                     data-precio=${p.precio}, data-stock=${p.stock}, data-imagen=${p.imagen}">
                                             Haz click para ver detalles
                                             <img th:src="@{/imagenes/{img}(img=${p.imagen})}" class="card w-100"
-                                            th:alt="${p.nombre}">
+                                            th:alt="${p.nombre}" style="height: 180px; object-fit: cover;">
                                     </button>
                                     <h5 class="card-title mt-2" th:text="${p.nombre}">Chicharrones</h5>
-                                    <p class="card-text price-tag">S/. <span th:text="${p.precio}"></span></p>
+                                    <p class="card-text price-tag">S/. <span th:text="${#numbers.formatDecimal(p.precio,1,2)}"></span></p>
                                     <button class="btn btn-add-to-cart" th:data-id="${p.id}">Agregar al carrito</button>
                                 </div>
                             </div>
@@ -245,35 +247,82 @@
 
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col">
-                            <img id="modalProductImage" src="" class="card w-100" alt="Imagen del Producto">
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <!-- Encabezado con gradiente -->
+            <div class="modal-header bg-gradient-primary text-white">
+                <h1 class="modal-title fs-4 fw-bold" id="staticBackdropLabel">
+                    <i class="fas fa-info-circle me-2"></i>Detalles del Producto
+                </h1>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <!-- Cuerpo del modal -->
+            <div class="modal-body p-4">
+                <div class="row g-4">
+                    <!-- Columna de imagen -->
+                    <div class="col-md-6">
+                        <div class="product-image-container rounded-4 overflow-hidden shadow-sm">
+                            <img id="modalProductImage" src="" class="img-fluid w-100 h-auto" alt="Imagen del Producto" style="max-height: 350px; object-fit: cover;">
                         </div>
-                        <div class="col">
-                            <h5 class="card-title mt-2" id="modalProductName"></h5>
-                            <p class="card-text price-tag">S/. <span id="modalProductPrice"></span></p>
-                            <p class="card-text" id="modalProductDescription"></p>
-                            <p class="card-text badge badge-success text-dark" >Stock: <span id="modalProductStock"></span></p>
-                            <p class="card-text bg-success text-white" >Categoria: <span id="modalProductCategoria"></span></p>
-
+                    </div>
+                    
+                    <!-- Columna de detalles -->
+                    <div class="col-md-6">
+                        <h3 class="product-title fw-bold text-dark mb-3" id="modalProductName"></h3>
+                        
+                        <!-- Precio con estilo destacado -->
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="price-tag fs-3 fw-bold text-danger">S/. <span id="modalProductPrice"></span></span>
+                            <span class="ms-3 badge bg-success bg-opacity-10 text-success fs-6">
+                                <i class="fas fa-check-circle me-1"></i> Disponible
+                            </span>
+                        </div>
+                        
+                        <!-- Descripción -->
+                        <div class="mb-4">
+                            <h5 class="text-muted mb-2"><i class="fas fa-align-left me-2"></i>Descripción</h5>
+                            <p class="card-text text-dark" id="modalProductDescription"></p>
+                        </div>
+                        
+                        <!-- Detalles adicionales -->
+                        <div class="product-details">
+                            <div class="d-flex mb-2">
+                                <span class="detail-label me-2 text-muted"><i class="fas fa-boxes me-1"></i>Stock:</span>
+                                <span class="detail-value fw-bold" id="modalProductStock"></span>
+                            </div>
+                            <div class="d-flex mb-2">
+                                <span class="detail-label me-2 text-muted"><i class="fas fa-tags me-1"></i>Categoría:</span>
+                                <span class="detail-value badge bg-primary bg-opacity-10 text-primary" id="modalProductCategoria"></span>
+                            </div>
+                        </div>
+                        
+                        <!-- Selector de cantidad -->
+                        <div class="quantity-selector mt-4">
+                            <label for="quantity" class="form-label text-muted">Cantidad:</label>
+                            <div class="input-group" style="max-width: 150px;">
+                                <button class="btn btn-outline-secondary" type="button" id="decrement">-</button>
+                                <input type="number" class="form-control text-center" id="quantity" value="1" min="1">
+                                <button class="btn btn-outline-secondary" type="button" id="increment">+</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-add-to-cart" data-bs-dismiss="modal">Agregar al carrito</button>
-                </div>
+            </div>
+            
+            <!-- Pie del modal con botones -->
+            <div class="modal-footer bg-light">
+                <button type="button" class="btn btn-outline-secondary px-4 rounded-pill" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Cerrar
+                </button>
+                <button type="button" class="btn btn-primary px-4 rounded-pill btn-add-to-cart">
+                    <i class="fas fa-cart-plus me-2"></i>Agregar al carrito
+                </button>
             </div>
         </div>
     </div>
+</div>
 
     <!-- Footer -->
     <footer class="footer-menu bg-dark text-white py-4 mt-5">

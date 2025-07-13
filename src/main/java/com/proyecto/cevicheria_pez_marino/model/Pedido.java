@@ -24,3 +24,4 @@ public class Pedido {
     @ManyToOne
     private Producto producto;
 }
+

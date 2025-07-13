@@ -28,3 +28,4 @@ public class Orden {
     @OneToMany(mappedBy = "orden")
     private List<Pedido> pedido;
 }
+

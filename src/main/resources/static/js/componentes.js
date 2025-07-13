@@ -3,20 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Componentes cargados');
 });
 
-function incrementarPersonas() {
-    const input = document.getElementById('numPersonas');
-    if (input.value < 10) {
-        input.value = parseInt(input.value) + 1;
-    }
-}
-
-function decrementarPersonas() {
-    const input = document.getElementById('numPersonas');
-    if (input.value > 1) {
-        input.value = parseInt(input.value) - 1;
-    }
-}
-
 // Función para cargar la barra de progreso
 function cargarBarraProgreso(pasoActual) {
     console.log('Cargando barra de progreso. Paso actual:', pasoActual);

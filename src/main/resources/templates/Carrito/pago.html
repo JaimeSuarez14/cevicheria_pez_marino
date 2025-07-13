@@ -223,7 +223,7 @@
         <div id="progreso-container" class="py-3"></div>
         <div class="row">
             <div class="col-md-7">
-                <h2 class="section-header">Cliente</h2>
+                <h2 class="section-header">Cliente</h2><hr>
                 <div class="info-summary">
                     <span class="info-label">Información del cliente:</span>
                     <div sec:authorize="!isAuthenticated()">
@@ -236,7 +236,7 @@
                     </div>
                 </div>
 
-                <h2 class="section-header">Envío</h2>
+                <h2 class="section-header">Envío</h2><hr>
                 <div class="info-summary">
                     <span class="info-label">Dirección de envío:</span>
                     <div sec:authorize="!isAuthenticated()">
@@ -254,9 +254,14 @@
                     <span class="info-value">Envio a domicilio ----------------------------------------- Gratis</span>
                 </div>
 
-                <h2 class="section-header">Pago</h2>
-                <p onclick="MP()" class="my-3">Pagar con Mercado Pago</p>
-                <div id="wallet_container"></div>
+                <h2 class="section-header">Pago</h2><hr>
+                <p class="my-3">Realizar el pago de forma segura con el enlace de Mercado Pago</p>
+                <div class="row">
+                    <div class="col col-md-5">
+                        <p class="small">Presiona en el boton de Mercado Para Ingresar a la Zona Segura:</p> 
+                    </div>
+                    <div class="col col-md-6" id="wallet_container"></div>
+                </div>
                 
                 <a class=" btn btn-next-step text-white text-decoration-none" th:href="@{/carrito/finalizar}">Siguiente: Resumen</a>
                 
@@ -264,40 +269,9 @@
 
             <div class="col-md-5">
                 <div class="order-summary-card">
-                    <h4>Resumen del pedido</h4>
-
-                    <div class="mb-3">
-                        <h6>Entrega</h6>
-                        <div class="btn-group delivery-options" role="group" aria-label="Opciones de entrega">
-                            <button type="button" class="btn btn-outline-secondary active">Entrega</button>
-                            <button type="button" class="btn btn-outline-secondary">Retiro</button>
-                        </div>
-                    </div>
-
-                    <div class="mb-4">
-                        <input type="text" class="form-control search-address-input"
-                            placeholder="Buscar por una dirección">
-                    </div>
-
-                    <div class="summary-row">
-                        <span>Subtotal:</span>
-                        <span>S/. 100.00</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>Descuentos:</span>
-                        <span>0</span>
-                    </div>
-                    <div class="coupon-input">
-                        <input type="text" class="form-control form-control-sm" placeholder="Ingresá tu código">
-                        <button class="btn btn-light btn-sm">Agregar</button>
-                    </div>
-                    <div class="summary-row total">
-                        <span>Total:</span>
-                        <span>S/. 100.00</span>
-                    </div>
-
-                    <button class="btn btn-finish-purchase"><a class="text-white text-decoration-none"
-                            th:href="@{/carrito/envio}">Regresar a Envio</a></button>
+                    <div th:replace="~{Componentes/datos_carrito:: resumen_pedido}"></div>
+                    <a class="text-white text-decoration-none btn btn-finish-purchase"
+                            th:href="@{/carrito/envio}">Regresar a Envio</a>
                     <a th:href="@{/principal/menu}" class="continue-shopping-link">Seguir comprando</a>
                 </div>
             </div>
@@ -313,6 +287,7 @@
         });
     </script>
     <script th:src="@{/js/pago_carrito.js}"></script>
+    <script th:src="@{/js/componente_resumen_pedido.js}"></script>
 </body>
 
 </html>

@@ -67,6 +67,8 @@ public class HomeController {
 
         List<Producto> productos = productoService.buscarPorNombre(busqueda);
         model.addAttribute("productos", productos);
+        model.addAttribute("busquedaRealizada", true); // Bandera para saber que se hizo una búsqueda
+
 
         session.setAttribute("listaCarrito", session.getAttribute("listaCarrito"));
 

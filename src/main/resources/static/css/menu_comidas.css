@@ -159,3 +159,40 @@ body {
     top: 10px;
     z-index: 100;
 }
+
+.bg-gradient-primary {
+        background: linear-gradient(135deg,  #97e0f0 0%, #3a7bd5 98%);
+    }
+    
+    .product-image-container {
+        border: 1px solid #eee;
+        transition: all 0.3s ease;
+    }
+    
+    .product-image-container:hover {
+        transform: scale(1.02);
+    }
+    
+    .product-title {
+        font-size: 1.8rem;
+        line-height: 1.2;
+    }
+    
+    .price-tag {
+        color: #dc3545;
+    }
+    
+    .detail-label {
+        min-width: 100px;
+    }
+    
+    .modal-content {
+        border-radius: 15px;
+        overflow: hidden;
+    }
+    
+
+    
+    .quantity-selector input {
+        font-weight: bold;
+    }

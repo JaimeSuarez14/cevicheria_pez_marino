@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,7 @@
     <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css}" rel="stylesheet">
     <link th:href="@{https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css}" rel="stylesheet">
     <link th:href="@{/css/reserva.css}" rel="stylesheet">
-    
+
     <style>
         :root {
             --bg-color: #ffffff;
@@ -36,12 +37,14 @@
             transition: all 0.3s ease;
         }
 
-        .navbar, .card {
+        .navbar,
+        .card {
             background-color: var(--card-bg) !important;
             transition: all 0.3s ease;
         }
     </style>
 </head>
+
 <body>
     <!-- Barra de navegación -->
     <div th:replace="~{Componentes/cabecera_reserva :: cabecera_reserva('fecha')}"></div>
@@ -53,16 +56,23 @@
     <div class="container py-5">
         <h2 class="text-center mb-4">Selecciona la fecha de tu reserva</h2>
         <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card p-4">
-                    <div class="mb-4">
+            <div class="col-md-6 ">
+                <div class="card p-4 shadow p-3 mb-5 bg-body-tertiary rounded">
+                    <form id="fechaForm" th:action="@{/reserva/guardarFecha}" method="post">
+                    <div class="mb-1">
                         <label for="fecha" class="form-label">Fecha de reserva</label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                            <input type="text" class="form-control" id="fecha" placeholder="Selecciona una fecha">
+                            <input type="text" class="form-control" id="fecha" name="fecha"
+                                placeholder="Selecciona una fecha" th:value="${fechaSeleccionada}">
                         </div>
-                        <small class="text-muted">Selecciona una fecha dentro de los próximos 30 días</small>
+                        <small class="text-muted">*Selecciona una fecha dentro de los próximos 30 días</small><br>
+                        <small class="text-muted">*Los lunes no se puede hacer reservaciones.</small>
                     </div>
+                    <div class="my-3 text-center">
+                        <button class="btn btn-outline-success fw-bold small">Guardar Fecha</button>
+                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -78,7 +88,7 @@
     <script th:src="@{/js/tema.js}"></script>
     <script th:src="@{/js/componentes.js}"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             initializeTheme();
             cargarBarraProgreso(3);
             flatpickr("#fecha", {
@@ -87,7 +97,7 @@
                 minDate: "today",
                 maxDate: new Date().fp_incr(30),
                 disable: [
-                    function(date) {
+                    function (date) {
                         return (date.getDay() === 1); // Deshabilitar los lunes
                     }
                 ]
@@ -95,4 +105,5 @@
         });
     </script>
 </body>
-</html> 
+
+</html>

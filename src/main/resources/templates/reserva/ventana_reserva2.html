@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <link th:href="@{/css/reserva.css}" rel="stylesheet">
     <!-- Contenedor para estilos comunes -->
 </head>
+
 <body>
     <!-- Contenedor para la barra de navegación -->
     <div th:replace="~{Componentes/cabecera_reserva :: cabecera_reserva('personas')}"></div>
@@ -22,19 +24,26 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card p-4">
-                    <div class="mb-4">
-                        <label for="numPersonas" class="form-label">Número de personas</label>
-                        <div class="input-group">
-                            <button class="btn btn-outline-secondary" type="button" onclick="decrementarPersonas()">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <input type="number" class="form-control text-center" id="numPersonas" value="2" min="1" max="10">
-                            <button class="btn btn-outline-secondary" type="button" onclick="incrementarPersonas()">
-                                <i class="fas fa-plus"></i>
-                            </button>
+                    <form id="personasForm" th:action="@{/reserva/guardarPersonas}" method="post">
+                        <div class="mb-4">
+                            <label for="numPersonas" class="form-label">Número de personas</label>
+                            <div class="input-group">
+                                <button class="btn btn-outline-secondary" type="button" onclick="decrementarPersonas()">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="number" class="form-control text-center" name="numPersonas" id="numPersonas" th:value="${numPersonas != null ? numPersonas : 2}" min="1"
+                                    max="10">
+                                <button class="btn btn-outline-secondary" type="button" onclick="incrementarPersonas()">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <small class="text-muted">Reserva minina 2 personas, Máximo 10 personas por reserva</small>
                         </div>
-                        <small class="text-muted">Máximo 10 personas por reserva</small>
-                    </div>
+                        <div class="my-3">
+                            <button class="btn btn-outline-success fw-bold small w-100">Guardar Número de Personas</button>
+                        </div>
+                        
+                    </form>
                 </div>
             </div>
         </div>
@@ -47,8 +56,9 @@
     <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/js/tema.js}"></script>
     <script th:src="@{/js/componentes.js}"></script>
+    <script th:src="@{/js/reserva_personas.js}"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             console.log('Iniciando carga de página...');
             initializeTheme();
             cargarBarraProgreso(2);
@@ -56,4 +66,5 @@
         });
     </script>
 </body>
-</html> 
+
+</html>
