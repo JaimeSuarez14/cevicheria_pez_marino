@@ -46,11 +46,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const data = await response.json();
             
-            if(Array.isArray(data) && data.length > 0){
-                carrito = data.map(e => e);
-                showNotification('Carrito Cargado!', 'success');
+            if(data && data.length > 0){
+                carrito = data;
                 return true;
-                
             }else{
                 return false;
             }

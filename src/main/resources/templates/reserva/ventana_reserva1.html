@@ -105,6 +105,10 @@
             transform: scale(1.1);
         }
 
+        .bg-selected {
+            background-color: rgba(13, 110, 253, 0.1) !important;
+            border-left: 4px solid var(--primary-color) !important;
+        }
         
     </style>
 </head>
@@ -120,10 +124,24 @@
         <div class="container">
             <div class="row align-items-center">
                 <!-- Columna de imagen -->
-                <div class="col-lg-6 mb-4 mb-lg-0">
-                    <img th:src="@{https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80}" 
+                <div class="col-lg-6 mb-4 mb-lg-0 justify-content-center">
+                    <div>
+                        <img th:src="@{/img/degustacion.avif}" 
                         alt="Ambiente del restaurante El Pez Marino" 
                         class="restaurante-img w-100">
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col">
+                            <img th:src="@{/img/degustacion2.jpeg}" 
+                            alt="Ambiente del restaurante El Pez Marino" 
+                            class="restaurante-img w-100">
+                        </div>
+                        <div class="col">
+                            <img th:src="@{/img/degustacion3.jpeg}" 
+                            alt="Ambiente del restaurante El Pez Marino" 
+                            class="restaurante-img w-100">
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- Columna de reservas -->
@@ -131,7 +149,7 @@
                     <h1 class="section-title">Experiencias</h1>
                     
                     <!-- Card de experiencia 1 -->
-                    <div class="card experiencia-card p-4">
+                    <div class="card experiencia-card p-4" th:classappend="${experienciaSeleccionada == 'Inmersión + Degustación (10:30 AM)'} ? 'border-primary bg-selected' : ''">
                         <h3 class="mb-3">Inmersión en el restaurant + Degustación</h3>
                         <p class="text-muted mb-4">Vive una experiencia única con nuestro chef ejecutivo y disfruta de nuestros platos estrella.</p>
                         <div class="d-flex justify-content-between align-items-center">
@@ -148,8 +166,8 @@
                     </div>
                     
                     <!-- Card de experiencia 2 -->
-                    <div class="card experiencia-card p-4">
-                        <h3 class="mb-3">Inmersión en el restaurant + Degustación</h3>
+                    <div class="card experiencia-card p-4" th:classappend="${experienciaSeleccionada == 'Cena especial con Sommelier (5:00 PM)'} ? 'border-primary bg-selected' : ''">
+                        <h3 class="mb-3">Cena especial con Sommelier</h3>
                         <p class="text-muted mb-4">Cena especial con maridaje de vinos seleccionados por nuestro sommelier.</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="badge bg-primary py-2 px-3">
@@ -165,8 +183,8 @@
                     </div>
                     
                     <!-- Card de experiencia 3 -->
-                    <div class="card experiencia-card p-4">
-                        <h3 class="mb-3">Inmersión en el restaurant + Degustación</h3>
+                    <div class="card experiencia-card p-4" th:classappend="${experienciaSeleccionada == 'Experiencia Premium Exclusiva (6:00 PM)'} ? 'border-primary bg-selected' : ''">
+                        <h3 class="mb-3">Experiencia Premium Exclusiva</h3>
                         <p class="text-muted mb-4">Experiencia premium con acceso a cocina y degustación de platillos exclusivos.</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="badge bg-primary py-2 px-3">
@@ -175,6 +193,22 @@
                             <form th:action="@{/reserva/guardarExperiencia}" method="post">
                                 <input type="hidden" name="experiencia" value="Experiencia Premium Exclusiva (6:00 PM)">
                                 <button type="submit" class="btn btn-reserva">
+                                    <i class="fas fa-bookmark me-2"></i>Reservar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card experiencia-card p-4" th:classappend="${experienciaSeleccionada == 'Sin experiencia'} ? 'border-primary bg-selected' : ''">
+                        <p>Si no deseas reservar una Experiencia puedes ir directamente al WhatsApp o seguir con la reserva</p>
+                        <a href="https://wa.me/993007485" class="whatsapp-link" target="_blank"><i class="fab fa-whatsapp fa-2x text-success"></i>
+                        </a>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="badge bg-success py-2 px-3">
+                                <i class="fas fa-clock me-2"></i>Sin experiencia
+                            </span>
+                            <form th:action="@{/reserva/guardarExperiencia}" method="post">
+                                <input type="hidden" name="experiencia" value="Sin experiencia">
+                                <button type="submit" class="btn btn-success">
                                     <i class="fas fa-bookmark me-2"></i>Reservar
                                 </button>
                             </form>

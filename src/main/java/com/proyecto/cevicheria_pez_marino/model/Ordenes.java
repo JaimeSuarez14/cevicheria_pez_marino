@@ -14,8 +14,8 @@ import jakarta.persistence.GenerationType;
 
 @Data
 @Entity
-@Table(name = "orden")
-public class Orden {
+@Table(name = "ordenes")
+public class Ordenes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -26,6 +26,8 @@ public class Orden {
     @ManyToOne
     private Usuario usuario;
     @OneToMany(mappedBy = "orden")
-    private List<Pedido> pedido;
+    private List<Pedidos> pedidos;
+
+    
 }
 

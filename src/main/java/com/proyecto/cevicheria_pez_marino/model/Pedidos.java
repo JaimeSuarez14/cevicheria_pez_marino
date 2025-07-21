@@ -10,17 +10,17 @@ import jakarta.persistence.GenerationType;
 
 @Data
 @Entity
-@Table(name = "pedido")
-public class Pedido {
+@Table(name = "pedidos")
+public class Pedidos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String nombre;
+    private String nombreProducto;
     private double precio;
     private double cantidad;
     private double subtotal;
     @ManyToOne
-    private Orden orden;
+    private Ordenes orden;
     @ManyToOne
     private Producto producto;
 }

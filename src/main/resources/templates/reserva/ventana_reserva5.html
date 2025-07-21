@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css}" rel="stylesheet">
     <link th:href="@{/css/reserva.css}" rel="stylesheet">
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
     <style>
         :root {
             --bg-color: #ffffff;
@@ -34,7 +36,8 @@
             transition: all 0.3s ease;
         }
 
-        .navbar, .card {
+        .navbar,
+        .card {
             background-color: var(--card-bg) !important;
             transition: all 0.3s ease;
         }
@@ -139,6 +142,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Barra de navegación -->
     <div th:replace="~{Componentes/cabecera_reserva :: cabecera_reserva('datos')}"></div>
@@ -150,55 +154,65 @@
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <h4 class="mb-4">Completa tus datos con Google o Facebook</h4>
-                
-                <div class="row mb-4">
+                <h4 class="mb-4">Completa tus datos iniciando Sesión</h4>
+
+                <div sec:authorize="isAuthenticated()" class="row mb-4">
+                    <p class="small"><em>Has iniciado sesión usuario: </em></p>
+                    <p><i class="fa-solid fa-user me-2 mb-0"></i><span th:text="${usuarioSession.username}"></span></p>
+                    <p><i class="fa-solid fa-envelope-circle-check me-2"></i><span
+                            th:text="${usuarioSession.email}"></span></p>
+                </div>
+
+                <div sec:authorize="!isAuthenticated()" class="row mb-4">
                     <div class="col-6">
-                        <a th:href="@{/usuario/login(continue=${request.getRequestURI()})}"  class="social-login-btn login-btn btn-secondary">
+                        <p class="small"><em>Inicia sesion para llenar tus datos rapidamente: </em></p>
+                        <a th:href="@{/usuario/login(continue=${request.getRequestURI()})}"
+                            class="social-login-btn login-btn btn-secondary">
                             <span class="me-2">Iniciar Sesion</span>
-                        </a>
-                    </div>
-                    <div class="col-6">
-                        <a class="social-login-btn facebook-btn">
-                            <i class="fab fa-facebook me-2"></i>Facebook
-                        </a>
-                    </div>
-                    <div class="col-6">
-                        <a class="social-login-btn google-btn">
-                            <i class="fab fa-google me-2"></i>Google
                         </a>
                     </div>
                 </div>
 
                 <h4 class="mb-3">Es hora de llenar tus datos:</h4>
-                <form id="datosForm" onsubmit="return validarFormulario()">
+                <form id="datosForm" th:action="@{/reserva/confirmarReserva}" method="post" onsubmit="return validarYConfirmar()">
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label>Nombre:</label>
-                            <input type="text" class="input-field" placeholder="Ingrese sus nombres" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label>Apellidos:</label>
-                            <input type="text" class="input-field" placeholder="Ingrese sus apellidos" required>
+                            <label>Nombre Completo:</label>
+                            <input type="text" class="input-field" placeholder="Ingrese sus nombres y apellidos"
+                                th:value="${usuarioSession!=null ? usuarioSession.nombre:''}" name="nombre" required>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label>Email:</label>
-                            <input type="email" class="input-field" placeholder="Ingrese su correo" required>
+                            <input type="email" class="input-field" placeholder="Ingrese su correo"
+                                th:value="${usuarioSession!=null ? usuarioSession.email:''}" name="correo" required>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label>Celular:</label>
-                            <input type="tel" class="input-field" placeholder="Ingrese su número de celular" required>
+                            <input type="tel" class="input-field" placeholder="Ingrese su número de celular"
+                                th:value="${usuarioSession!=null ? usuarioSession.telefono:''}" name="celular" required>
                         </div>
                     </div>
 
                     <h5 class="mt-4 mb-3">Ingrese su medio de pago:</h5>
-                    <div class="mb-3">
-                        <label class="d-block">Yape</label>
+                    <div class="row " style="display: flex; align-items: center; justify-content: center;">
+                        <div class="col-md-6 mb-3">
+                            <p class="small"><em>Si deseas pagar con yape u otro banco ingresa al enlace de Mercado Pago a la zona seguridad: </em></p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="col col-md-6" id="wallet_container"></div>
+                        </div>
                     </div>
-
+                    <div class="col-md-6 mb-3">
+                        <label for="medioPago" class="form-label">Seleccione un medio de pago:</label>
+                        <select class="form-select input-field" id="medioPago" name="medioPago" required>
+                            <option value="">Seleccione...</option>
+                            <option value="Tarjeta de debito">Tarjeta de debito </option>
+                            <option value="Tarjeta de Crédito">Tarjeta de Crédito</option>
+                            </select>
+                    </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label>Número de tarjeta:</label>
@@ -224,12 +238,15 @@
                     <div class="row mt-4">
                         <div class="col-md-6">
                             <h5>Políticas de reserva:</h5>
-                            <p>Para reservas de 7 a más personas, comunicarse con nosotros directamente a través del WhatsApp</p>
-                            <a href="https://wa.me/TUNUMERO" class="whatsapp-link" target="_blank">
-                                <i class="fab fa-whatsapp"></i>
-                            </a>
+                            <p>Para reservas de 7 a más personas, comunicarse con nosotros directamente a través del
+                                WhatsApp</p>
+                            <span>Hac click para ir al WhatsApp <a href="https://wa.me/993007485" class="whatsapp-link" target="_blank"><i class="fab fa-whatsapp"></i>
+                            </a></span>
                         </div>
                     </div>
+
+                    <div th:if="${mensajeExito}" class="alert alert-success mt-3" role="alert" th:text="${mensajeExito}"></div>
+                    <div th:if="${mensajeError}" class="alert alert-danger mt-3" role="alert" th:text="${mensajeError}"></div>
 
                     <button type="submit" class="confirm-btn">
                         Confirmar reserva
@@ -247,7 +264,7 @@
     <script th:src="@{/js/tema.js}"></script>
     <script th:src="@{/js/componentes.js}"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             initializeTheme();
             cargarBarraProgreso(5);
         });
@@ -258,6 +275,8 @@
             return false; // Prevenir el envío del formulario
         }
     </script>
-</body>
-</html> 
+    <script th:src="@{/js/pago_carrito.js}"></script>
 
+</body>
+
+</html>

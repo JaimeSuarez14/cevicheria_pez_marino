@@ -6,23 +6,23 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.proyecto.cevicheria_pez_marino.model.Pedido;
-import com.proyecto.cevicheria_pez_marino.repository.PedidoRepository;
+import com.proyecto.cevicheria_pez_marino.model.Pedidos;
+import com.proyecto.cevicheria_pez_marino.repository.PedidosRepository;
 
 @Service
-public class PedidoService {
+public class PedidosService {
     @Autowired
-    private PedidoRepository pedidoRepository;
+    private PedidosRepository pedidoRepository;
 
-    public List<Pedido> findAll() {
+    public List<Pedidos> findAll() {
         return pedidoRepository.findAll();
     }
 
-    public Pedido save(Pedido pedido) {
+    public Pedidos save(Pedidos pedido) {
         return pedidoRepository.save(pedido);
     }
 
-    public Optional<Pedido> findById(Integer id) {
+    public Optional<Pedidos> findById(Integer id) {
         return pedidoRepository.findById(id);
     }
 

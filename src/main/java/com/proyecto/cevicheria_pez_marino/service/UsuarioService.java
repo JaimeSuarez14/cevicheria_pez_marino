@@ -2,6 +2,7 @@ package com.proyecto.cevicheria_pez_marino.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,9 +20,10 @@ public class UsuarioService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public List<Usuario> findAll() {
+    public List<Usuario> obtenerTodosLosUsuarios() {
         return usuarioRepository.findAll();
     }
+
 
     public Usuario save(Usuario usuario) {
 
@@ -49,6 +51,10 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
+    public Usuario actualizar(Usuario usuario) {
+        return usuarioRepository.save(usuario);
+    }
+
     public Optional<Usuario> findById(int id) {
         return usuarioRepository.findById(id);
     }
@@ -64,6 +70,17 @@ public class UsuarioService {
     public Optional<Usuario> buscarPorUsername(String username) {
         return usuarioRepository.findByUsername(username);
     }
+
+    public List<Usuario> buscarPorNombre(String busqueda) {
+        //vamos ha convertir a minusculas para que la busqueda sea insensible a mayusculas y minusculas
+        String palabraBuscada = busqueda.toLowerCase();
+        
+        return usuarioRepository.findAll().stream()
+            .filter(p -> p.getNombre().toLowerCase().contains(palabraBuscada))
+            .collect(Collectors.toList());
+    }
+
+
 
     // Método para crear un administrador por defecto si no existe ninguno
     public void crearAdminPorDefecto() {

@@ -1,5 +1,6 @@
 package com.proyecto.cevicheria_pez_marino.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -26,7 +27,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.proyecto.cevicheria_pez_marino.dto.ClienteCarritoInvitado;
 import com.proyecto.cevicheria_pez_marino.dto.Cupon;
 import com.proyecto.cevicheria_pez_marino.dto.ListaCarrito;
+import com.proyecto.cevicheria_pez_marino.model.Ordenes;
+import com.proyecto.cevicheria_pez_marino.model.Pedidos;
 import com.proyecto.cevicheria_pez_marino.model.Usuario;
+import com.proyecto.cevicheria_pez_marino.service.OrdenesService;
+import com.proyecto.cevicheria_pez_marino.service.PedidosService;
 import com.proyecto.cevicheria_pez_marino.service.UsuarioService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,6 +46,10 @@ public class CarritoController {
     private final Logger logger = LoggerFactory.getLogger(CarritoController.class);
 
     private final UsuarioService usuarioService;
+
+    private final PedidosService pedidosService;
+    
+    private final OrdenesService ordenesService;
 
     @PostMapping("/productos")
     @ResponseBody
@@ -224,11 +233,18 @@ public class CarritoController {
             model.addAttribute("cliente", cliente);
 
         }
+
+        @SuppressWarnings("unchecked")
+        List<ListaCarrito> lista = (List<ListaCarrito>) session.getAttribute("listaCarrito");
+
+        if (lista == null || lista.isEmpty()) {
+            return "Carrito/productos";
+        }
         
         return "Carrito/finalizar";
     }
 
-    @SuppressWarnings("null")
+    @SuppressWarnings("")
     @GetMapping("/resumenCompra")
     public String verVentanaResumenCompra(HttpSession session, Model model, @AuthenticationPrincipal Usuario usuarioAutenticado) {
         @SuppressWarnings("unchecked")
@@ -240,18 +256,59 @@ public class CarritoController {
 
         ClienteCarritoInvitado cliente = (ClienteCarritoInvitado) session.getAttribute("clienteInvitado");
 
-        boolean  usuarioLogueado = usuarioAutenticado != null;
+        var  usuarioLogueado = usuarioAutenticado != null ? usuarioAutenticado: cliente ;
         
-        if( usuarioLogueado){
-            model.addAttribute("email", usuarioAutenticado.getEmail());
-        }else{
-            model.addAttribute("email", cliente.getCorreo());
-
+        if( usuarioLogueado != null){
+            model.addAttribute("email", usuarioAutenticado!= null ? usuarioAutenticado.getEmail() : cliente.getCorreo());
         }
+
+        //usuario de respaldo
+        Usuario generico = usuarioService.buscarPorUsername("generico").orElse(null);
+
+
+        //GUARDAR PEDIDO Y ORDEN
+        // Paso 1: Crear la orden
+        Ordenes orden = new Ordenes();
+        orden.setFecha(LocalDate.now().toString());
+        orden.setEstado("Pendiente");
+        orden.setMetodoPago("Tarjeta");
+        orden.setUsuario( usuarioAutenticado instanceof Usuario ? usuarioAutenticado : generico);
+
+        // Guardar la orden en la base de datos (esto le asignará un ID)
+        Ordenes ordenCompleta = ordenesService.save(orden);
+
+        // Paso 2: Crear y guardar los pedidos asociados
+        List<Pedidos> pedidos = new ArrayList<>();
+        double total =0;
+        for (ListaCarrito listas : lista) {
+            Pedidos pedido = new Pedidos();
+            pedido.setNombreProducto(listas.getProducto().getNombre());
+            pedido.setPrecio(listas.getProducto().getPrecio());
+            pedido.setCantidad(listas.getCantidad());
+            double subtotal = listas.getCantidad() * listas.getProducto().getPrecio();
+            total += subtotal;
+            
+            pedido.setSubtotal(subtotal);
+            // Asociar el pedido a la orden
+            pedido.setOrden(orden);
+            pedido.setProducto(listas.getProducto());
+
+            // Guardar el pedido en la base de datos
+            pedido = pedidosService.save(pedido);
+
+            // Agregar el pedido a la lista de pedidos
+            pedidos.add(pedido);
+        }
+
+        // Paso 3: Asociar la lista de pedidos a la orden
+        ordenCompleta.setTotal(total);        
+        // Guardar la orden de nuevo para actualizar la lista de pedidos
+        ordenesService.save(ordenCompleta);
         
-        model.addAttribute("usuarioLogueado", usuarioLogueado);
+        model.addAttribute("usuarioLogueado", usuarioAutenticado!= null ? true : false);
         
         model.addAttribute("lista", lista);
+        session.removeAttribute("listaCarrito");   
 
         return "Carrito/resumenCompra";
     }
@@ -263,7 +320,7 @@ public class CarritoController {
         ClienteCarritoInvitado cliente = (ClienteCarritoInvitado) session.getAttribute("clienteInvitado");
 
         //redirectAttributes.addAttribute y se recibe en el argumento del metodo  public String detalle(@RequestParam("id")
-        //redirectAttributes.addFlashAttribute  y automativamente se guardoe ne model de la vista
+        //redirectAttributes.addFlashAttribute  y automativamente se guarda en el model de la vista
 
         if (cliente.getCorreo() == null || cliente.getCorreo().trim().isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "El email es obligatorio");

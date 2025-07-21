@@ -1,6 +1,37 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Iniciando carga de componentes...');
     console.log('Componentes cargados');
+
+    const userName = document.getElementById("usuarioIniciado");
+
+    async function recogerUsuario(){
+        try{
+            const response = await fetch('/usuario/enviarCliente');
+
+            if (!response.ok) {
+                throw new Error(`Error HTTP! Estado: ${response.status}`);
+            }
+
+            const data = await response.json();
+            return data;
+        }catch(error){
+            console.error(error);
+            return false;
+        }
+
+    }
+
+    async function inicializarPagina() {
+        const user = await recogerUsuario();
+
+        if (user!=null) {
+            userName.innerHTML = user.username;
+        } else {
+            alert('Aun no han iniciado sesión');
+        }
+    }
+
+    inicializarPagina();
 });
 
 // Función para cargar la barra de progreso

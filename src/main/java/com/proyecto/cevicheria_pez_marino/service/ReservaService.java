@@ -14,11 +14,11 @@ public class ReservaService {
     @Autowired
     private ReservaRepository reservaRepository;
 
-    public List<Reserva> findAll() {
+    public List<Reserva> obtenerTodosLasReservas() {
         return reservaRepository.findAll();
     }
 
-    public Reserva save(Reserva reserva) {
+    public Reserva guardarReserva(Reserva reserva) {
         return reservaRepository.save(reserva);
     }
 
@@ -29,4 +29,8 @@ public class ReservaService {
     public void delete(Integer id) {
         reservaRepository.deleteById(id);
     }
+
+    // public List<Reserva> filtrarPorFechas(LocalDate fechaInicio, LocalDate fechaFin) {
+    //     return reservaRepository.findByFechaBetween(fechaInicio, fechaFin);
+    // }
 }

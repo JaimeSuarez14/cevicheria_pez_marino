@@ -27,7 +27,7 @@ public class WebSecurityConfig {
                 .requestMatchers( "/index", "/css/**", "/js/**", "/img/**", "/imagenes/**").permitAll() // Permitir acceso a recursos estáticos y páginas públicas
                 .requestMatchers("/usuario/login", "/usuario/registro", "/usuario/registrarUsuario", "/administracion/verProducto/**").permitAll() // Permitir acceso a login y registro
                 .requestMatchers("/principal/**", "/carrito/**", "/reserva/**").permitAll() // Permitir acceso a páginas públicas
-                .requestMatchers("/administracion/**").hasRole("ADMIN") // Solo administradores pueden acceder
+                .requestMatchers("/administracion/**", "/adminVenta/**", "/adminReserva/**").hasRole("ADMIN") // Solo administradores pueden acceder
                 .anyRequest().authenticated() // Requerir autenticación para cualquier otra solicitud
             )
             .formLogin(form -> form

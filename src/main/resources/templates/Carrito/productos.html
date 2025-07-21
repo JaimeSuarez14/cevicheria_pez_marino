@@ -264,6 +264,11 @@
                 <h2 class="cart-header">Mi Carrito</h2>
 
                 <div class="cart-body">
+                    <div class="cart-item-card" th:if="${#lists.isEmpty(listaCarrito)}">
+
+                        <p>Tu carrito está vacío, ve a la tienda para agregar productos.</p>
+
+                    </div>
                     <div class="cart-item-card" th:each="p:${listaCarrito}">
                         <div style="position: relative;">
                             <img th:src="@{/img/productos/{img}(img=${p.producto.imagen})}"

@@ -5,11 +5,14 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.proyecto.cevicheria_pez_marino.dto.UsuarioCliente;
 import com.proyecto.cevicheria_pez_marino.model.Usuario;
 import com.proyecto.cevicheria_pez_marino.service.UsuarioService;
 
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/usuario")
@@ -129,4 +133,18 @@ public class UsuarioController {
         }
     }
     
+    @GetMapping("/enviarCliente")
+    public ResponseEntity<UsuarioCliente> enviarDatosUsuario(HttpSession session ,@AuthenticationPrincipal Usuario usuarioAutenticado) {
+        UsuarioCliente usuarioCliente = new UsuarioCliente();
+        usuarioCliente.setNombre(usuarioAutenticado.getNombre());
+        usuarioCliente.setUsername(usuarioAutenticado.getUsername());
+        usuarioCliente.setEmail(usuarioAutenticado.getEmail());
+        usuarioCliente.setDireccion(usuarioAutenticado.getDireccion());
+        usuarioCliente.setTelefono(usuarioAutenticado.getTelefono());
+        usuarioCliente.setRol(usuarioAutenticado.getRol());
+
+        session.setAttribute("usuarioSession", usuarioCliente);
+        return ResponseEntity.ok(usuarioCliente);
+
+    }
 }
